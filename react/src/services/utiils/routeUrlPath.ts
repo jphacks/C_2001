@@ -1,0 +1,12 @@
+export const ROOT_PATH: string = "/root";
+export const HOME_PATH: string = "/home";
+export const LOCATION_STATUS_PATH: string = "/location-status";
+export const LOCATION_ADD_PATH: string = "/location-add";
+export const LOCATION_REGISTER_PATH: string = "/location-register";
+export const FRIEND_LOCATION_PATH: string = "/friend-location";
+export const CAHT_ROOM_PATH: string = "/chat-room";
+export const FRIEND_LIST_PATH: string = "/freind-list";
+export const FRIEND_REGISTER_PATH: string = "/freind-register";
+export const LOGIN_PATH: string = "/login";
+export const SIGNUP_PATH: string = "/signup";
+export const LOGOUT_PATH: string = "/logout";
