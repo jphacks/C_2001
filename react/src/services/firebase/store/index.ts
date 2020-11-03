@@ -196,6 +196,14 @@ export const deleteDoc = async (path: string): Promise<void> => {
   }
 };
 
+export const deleteSubDoc = async (path: string): Promise<void> => {
+  try {
+    return getBaseSubDoc(path).delete();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const subscribeDoc = async (
   path: string,
   setState: (state: any) => void,
