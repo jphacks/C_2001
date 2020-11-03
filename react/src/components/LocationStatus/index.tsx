@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
-/*todo 不明!!*/
-
 import back from "./assets/back.png";
 import status1 from "./assets/status1.png";
 import status2 from "./assets/status2.png";
@@ -12,7 +9,6 @@ export const LocationStatus = () => {
   return (
     <div>
       <Top>
-        {/*todo 不明!!*/}
         <img src={back} alt="back" />
         <Title>位置情報ステータス</Title>
       </Top>
@@ -24,14 +20,13 @@ export const LocationStatus = () => {
             <Status>スリープモード</Status>
           </Status_text_small>
           {/*スリープモードの時の顔*/}
-          {/*todo 不明!!*/}
-          {/*<Status_kao src={status1} />*/}
+          <Status_kao src={status1} />
 
           {/*違うステータスの時の顔*/}
-          {/*<status_kao src={status2} />*/}
+          {/*<Status_kao src={status2} />*/}
 
           {/*非公開の時の顔*/}
-          {/*<status_kao src={status3} />*/}
+          {/*<Status_kao src={status3} />*/}
         </Status_text>
         <p className="advaice">買い物に出かけるとステータスが変わるよ！</p>
       </Status_box>
