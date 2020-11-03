@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import * as urls from "../../services/utiils/routeUrlPath";
 
 import HomeIcon from "./assets/home.svg";
 import LocationIcon from "./assets/location.svg";
@@ -10,13 +12,19 @@ export const Navigation = () => {
     <NavContainer>
       <NavBox>
         <div>
-          <NavIcon src={HomeIcon} alt="Nav Home Icon" />
+          <Link to={urls.HOME_PATH}>
+            <NavIcon src={HomeIcon} alt="Nav Home Icon" />
+          </Link>
         </div>
         <div>
-          <NavIcon src={LocationIcon} alt="Nav Location Icon" />
+          <Link to={urls.LOCATION_ADD_PATH}>
+            <NavIcon src={LocationIcon} alt="Nav Location Icon" />
+          </Link>
         </div>
         <div>
-          <NavIcon src={MessegeIcon} alt="Nav Messege Icon" />
+          <Link to={urls.FRIEND_LIST_PATH}>
+            <NavIcon src={MessegeIcon} alt="Nav Messege Icon" />
+          </Link>
         </div>
       </NavBox>
     </NavContainer>
