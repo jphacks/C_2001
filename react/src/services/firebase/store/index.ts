@@ -77,6 +77,35 @@ export const setCollection = async (
   }
 };
 
+export const getSubCollection = async (
+  path: string
+): Promise<Array<DocData> | null> => {
+  try {
+    const snapShot = await getBaseSubCollection(path).get();
+    return snapShot.empty
+      ? null
+      : snapShot.docs.map((doc: firebase.firestore.DocumentData) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setSubCollection = async (
+  path: string,
+  query: SetFql,
+  option: any
+): Promise<string> => {
+  try {
+    const ref = await getBaseSubCollection(path).add(query);
+    return ref.id;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const setDoc = async (
   path: string,
   query: SetFql,
@@ -107,6 +136,47 @@ export const getDoc = async (
 ): Promise<DocData | null> => {
   try {
     const snapshot = await getBaseDoc(path).get();
+    return snapshot.exists
+      ? {
+          id: snapshot.id,
+          data: snapshot.data(),
+        }
+      : null;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setSubDoc = async (
+  path: string,
+  query: SetFql,
+  option?: any
+): Promise<void> => {
+  try {
+    return getBaseSubDoc(path).set(query);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateSubDoc = async (
+  path: string,
+  query: SetFql,
+  option?: any
+): Promise<void> => {
+  try {
+    return getBaseSubDoc(path).update(query);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSubDoc = async (
+  path: string,
+  option?: any
+): Promise<DocData | null> => {
+  try {
+    const snapshot = await getBaseSubDoc(path).get();
     return snapshot.exists
       ? {
           id: snapshot.id,
