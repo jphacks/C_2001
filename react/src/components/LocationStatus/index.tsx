@@ -9,27 +9,27 @@ export const LocationStatus = () => {
   return (
     <div>
       <Top>
-        <img src={back} alt="back" />
+        <Back src={back} alt="back" />
         <Title>位置情報ステータス</Title>
       </Top>
 
-      <Status_box>
-        <Status_text>
-          <Status_text_small>
+      <StatusBox>
+        <StatusText>
+          <StatusTextSmall>
             <Subtitle>位置情報ステータス</Subtitle>
             <Status>スリープモード</Status>
-          </Status_text_small>
+          </StatusTextSmall>
           {/*スリープモードの時の顔*/}
-          <Status_kao src={status1} />
+          <StatusKao src={status1} />
 
           {/*違うステータスの時の顔*/}
           {/*<Status_kao src={status2} />*/}
 
           {/*非公開の時の顔*/}
           {/*<Status_kao src={status3} />*/}
-        </Status_text>
+        </StatusText>
         <p className="advaice">買い物に出かけるとステータスが変わるよ！</p>
-      </Status_box>
+      </StatusBox>
 
       <Range>
         <Koukai>ステータスの公開範囲</Koukai>
@@ -64,7 +64,7 @@ const Title = styled.p`
   margin-left: 65.24px;
 `;
 
-const Status_box = styled.div`
+const StatusBox = styled.div`
   /* ステータスがスリープモードまたは非公開の時 */
   background: #fafafa;
   border-radius: 6px;
@@ -94,7 +94,7 @@ const Status = styled.p`
   /* color: #FF9900; */
 `;
 
-const Status_text = styled.div`
+const StatusText = styled.div`
   display: flex;
   width: 228px;
   height: 56px;
@@ -102,12 +102,12 @@ const Status_text = styled.div`
   padding-top: 19px;
 `;
 
-const Status_text_small = styled.div`
+const StatusTextSmall = styled.div`
   height: 56px;
   padding-top: 11px;
 `;
 
-const Status_kao = styled.img`
+const StatusKao = styled.img`
   width: 58px;
   height: 56px;
   margin-left: 56px;
