@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Home = () => {
   return (
     <div>
-      <H1></H1>
+      <H1>Home</H1>
     </div>
   );
 };

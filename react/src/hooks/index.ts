@@ -4,3 +4,4 @@
  * Hooks：ユースケースごとのロジックはここに詰め込んでいく
  *
  */
+export const useHooks = {};
