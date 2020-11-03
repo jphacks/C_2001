@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Home } from "../Home";
+import { LocationStatus } from "../LocationStatus";
 
 export const Root = () => {
-  return <Home />;
+  return <LocationStatus />;
 };
