@@ -3,4 +3,4 @@
  * ログイン用のHooks
  *
  */
-export const useLogin = {};
+export const useLogin = () => {};
