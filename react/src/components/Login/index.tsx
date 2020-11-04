@@ -1,26 +1,52 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../../hooks/useAuth";
-import { useLogin } from "../../hooks/useLogin";
+import { useAuth } from "../../contexts/auth";
+import { useLogIn } from "../../hooks/useLogIn";
+import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Login = () => {
   const { userCredential } = useAuth();
-
   const [email, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
-
-  const loginFn = useLogin();
+  const loginFn = useLogIn();
+  const history = useHistory();
 
   const submitFn = async () => {
-    const user = await loginFn(email, pass);
+    await loginFn(email, pass);
+    if (userCredential.status === "in") {
+      history.push(HOME_PATH);
+    }
   };
+
   return (
     <div>
       <Form>
-        <Input type="email" name="in01" placeholder="メールアドレス" />
-
-        <Input type="password" name="in02" placeholder="パスワード" />
-        <Submit type="submit" value="ログイン" />
+        <Input
+          type="email"
+          name="in01"
+          placeholder="メールアドレス"
+          value={email}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setEmail(e.currentTarget.value);
+          }}
+        />
+        <Input
+          type="password"
+          name="in02"
+          placeholder="パスワード"
+          value={pass}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setPass(e.currentTarget.value);
+          }}
+        />
+        <Submit
+          type="submit"
+          value="ログイン"
+          onClick={() => {
+            submitFn();
+          }}
+        />
         <Transition>
           <p>新規登録はこちらから</p>
         </Transition>

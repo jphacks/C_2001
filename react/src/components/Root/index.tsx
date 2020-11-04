@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { Home } from "../Home";
 import { Navigation } from "../Navigation";
 import * as urls from "../../services/utiils/routeUrlPath";
+import { useAuth } from "../../contexts/auth";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { LocationStatus } from "../LocationStatus";
@@ -17,6 +17,7 @@ import { Singup } from "../Signup";
 import { Logout } from "../Logout";
 
 export const Root = () => {
+  const { userCredential } = useAuth();
   return (
     <Router>
       <Navigation />

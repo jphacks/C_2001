@@ -1,20 +1,29 @@
-import { sign } from "crypto";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../../contexts/auth";
-import { useSignup } from "../../hooks/useSignup";
+
+import { useSignUp } from "../../hooks/useSignUp";
+import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Singup = () => {
-  const { onAuthState } = useAuth();
+  const { userCredential } = useAuth();
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
-  const [error, setError] = React.useState("");
-  const signupFn = useSignup();
+  const [error, setError] = React.useState<any>("");
+  const history = useHistory();
+  const signUpFn = useSignUp();
 
   const submitFn = async () => {
-    const user = await signupFn(email, pass, username);
-    console.log("user", user);
+    try {
+      await signUpFn(email, pass, username);
+      if (userCredential.status === "in") {
+        history.push(HOME_PATH);
+      }
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (
