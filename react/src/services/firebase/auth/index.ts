@@ -8,7 +8,7 @@ import firebase from "firebase";
 import { DocData, getDoc, setDoc } from "../store";
 import { USERS_QUERY } from "../../utiils/fireeStoreQuery";
 
-const auth = FireApp.auth();
+export const FireAuth = FireApp.auth();
 
 /**
  * 返り値：Promise<DocData | null>　Fiirestoreに保存されているUserデータを<DocData>型で返す
@@ -19,12 +19,12 @@ export const fireAuthSignIn = async (
   email: string,
   pass: string
 ): Promise<DocData | null> =>
-  auth
-    .signInWithEmailAndPassword(email, pass)
-    .then(async (credential: firebase.auth.UserCredential) => {
+  FireAuth.signInWithEmailAndPassword(email, pass).then(
+    async (credential: firebase.auth.UserCredential) => {
       const uid = credential.user?.uid;
       return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
-    });
+    }
+  );
 
 /**
  * 返り値：Promise<DocData | null>　Fiirestoreに保存されているUserデータを<DocData>型で返す
@@ -37,23 +37,25 @@ export const fireAuthSignUp = async (
   pass: string,
   name: string
 ): Promise<DocData | null> =>
-  auth.createUserWithEmailAndPassword(email, pass).then(async (credencial) => {
-    try {
-      const uid = credencial.user?.uid;
-      const nickName = name ? name : credencial.user?.email;
-      await setDoc(`${USERS_QUERY}/${uid}`, {
-        name: nickName,
-        id: uid,
-        email: credencial.user?.email,
-      });
-      return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
-    } catch (error) {
-      throw error;
+  FireAuth.createUserWithEmailAndPassword(email, pass).then(
+    async (credencial) => {
+      try {
+        const uid = credencial.user?.uid;
+        const nickName = name ? name : credencial.user?.email;
+        await setDoc(`${USERS_QUERY}/${uid}`, {
+          name: nickName,
+          id: uid,
+          email: credencial.user?.email,
+        });
+        return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
+      } catch (error) {
+        throw error;
+      }
     }
-  });
+  );
 
 /**
  * ログアウト
  * 失敗時Errorをthrow
  */
-export const fireAuthLogOut = async () => auth.signOut();
+export const fireAuthLogOut = async () => FireAuth.signOut();

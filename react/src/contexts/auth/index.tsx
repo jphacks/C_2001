@@ -7,6 +7,7 @@
 import React from "react";
 import { createCtx } from "../../services/utiils/createCtx";
 import { useAuthUsecase } from "../../hooks/useAuth";
+import firebase from "firebase";
 
 export interface UserCredential {
   status: "in" | "out";
@@ -21,7 +22,8 @@ export interface User {
 
 export interface AuthContextInterface {
   userCredential: UserCredential;
-  error: Error | null;
+  onAuthState: () => void;
+  error: firebase.auth.Error | null;
   onLoad: boolean;
 }
 
