@@ -10,6 +10,8 @@ import { FireAuth } from "../../services/firebase/auth";
 import { getDoc, setDoc } from "../../services/firebase/store";
 import { USERS_QUERY } from "../../services/utiils/fireeStoreQuery";
 
+export { useAuth } from "../../contexts/auth";
+
 export const useAuthUsecase = (): AuthContextInterface => {
   const [userCredential, setUserCredential] = React.useState<UserCredential>({
     status: "out",
@@ -29,6 +31,7 @@ export const useAuthUsecase = (): AuthContextInterface => {
     const unsubscribe = FireAuth.onAuthStateChanged(
       async (user) => {
         setOnLoad(true);
+        console.log("onAuthStateChanged", user);
         const uid = user?.uid;
         if (!uid) {
           setUserCredential({

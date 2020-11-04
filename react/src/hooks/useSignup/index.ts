@@ -6,11 +6,11 @@
  */
 import { User } from "../../contexts/auth";
 import { fireAuthSignUp } from "../../services/firebase/auth";
-export const useLogin = async (
+export const useSignup = () => async (
   email: string,
   pass: string,
   name: string
-): Promise<User | null> => {
+) => {
   const credential = await fireAuthSignUp(email, pass, name);
   if (!credential) return null;
   return {

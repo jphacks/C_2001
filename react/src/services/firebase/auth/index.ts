@@ -41,9 +41,10 @@ export const fireAuthSignUp = async (
     async (credencial) => {
       try {
         const uid = credencial.user?.uid;
-        const nickName = name ? name : credencial.user?.email;
+        if (!uid) throw Error("not found uid");
+
         await setDoc(`${USERS_QUERY}/${uid}`, {
-          name: nickName,
+          name: name,
           id: uid,
           email: credencial.user?.email,
         });

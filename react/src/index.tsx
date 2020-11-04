@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Root } from "./components/Root";
 import reportWebVitals from "./reportWebVitals";
+import { GlobalContext } from "./services/utiils/globalContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root />
+    <GlobalContext>
+      <Root />
+    </GlobalContext>
   </React.StrictMode>,
   document.getElementById("root")
 );

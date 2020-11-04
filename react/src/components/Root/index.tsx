@@ -49,7 +49,7 @@ export const Root = () => {
           <FreindRegister />
         </Route>
 
-        <Route path={urls.LOGOUT_PATH}>
+        <Route path={urls.LOGIN_PATH}>
           <Login />
         </Route>
 
