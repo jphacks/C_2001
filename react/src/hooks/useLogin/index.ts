@@ -5,7 +5,7 @@
  */
 import { User } from "../../contexts/auth";
 import { fireAuthSignIn } from "../../services/firebase/auth";
-export const useLogin = () => async (
+export const useLogIn = () => async (
   email: string,
   pass: string
 ): Promise<User | null> => {

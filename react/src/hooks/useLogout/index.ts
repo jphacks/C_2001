@@ -4,5 +4,5 @@
  *
  */
 import { fireAuthLogOut } from "../../services/firebase/auth";
-export const useLogout = () => (email: string, pass: string): Promise<void> =>
-  fireAuthLogOut();
+
+export const useLogout = () => (): Promise<void> => fireAuthLogOut();

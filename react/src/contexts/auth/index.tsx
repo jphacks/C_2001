@@ -6,7 +6,7 @@
  */
 import React from "react";
 import { createCtx } from "../../services/utiils/createCtx";
-import { useAuthUsecase } from "../../hooks/useAuth";
+import { useAuthUsecase } from "../../services/usecase/auth";
 import firebase from "firebase";
 
 export interface UserCredential {
@@ -22,7 +22,7 @@ export interface User {
 
 export interface AuthContextInterface {
   userCredential: UserCredential;
-  onAuthState: () => void;
+  onAuthState: (user: User | null | undefined) => void;
   error: firebase.auth.Error | null;
   onLoad: boolean;
 }
