@@ -19,12 +19,18 @@ export const fireAuthSignIn = async (
   email: string,
   pass: string
 ): Promise<DocData | null> =>
-  FireAuth.signInWithEmailAndPassword(email, pass).then(
-    async (credential: firebase.auth.UserCredential) => {
-      const uid = credential.user?.uid;
-      return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
-    }
-  );
+  FireAuth.signInWithEmailAndPassword(email, pass)
+    .then(async (credential: firebase.auth.UserCredential) => {
+      try {
+        const uid = credential.user?.uid;
+        return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
+      } catch (error) {
+        throw error;
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
 
 /**
  * 返り値：Promise<DocData | null>　Fiirestoreに保存されているUserデータを<DocData>型で返す
@@ -37,26 +43,27 @@ export const fireAuthSignUp = async (
   pass: string,
   name: string
 ): Promise<DocData | null> =>
-  FireAuth.createUserWithEmailAndPassword(email, pass).then(
-    async (credencial) => {
+  FireAuth.createUserWithEmailAndPassword(email, pass)
+    .then(async (credencial) => {
       try {
         const uid = credencial.user?.uid;
         if (!uid) throw Error("not found uid");
 
         await setDoc(`${USERS_QUERY}/${uid}`, {
           name: name,
-          id: uid,
           email: credencial.user?.email,
         });
         return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
       } catch (error) {
         throw error;
       }
-    }
-  );
+    })
+    .catch((error) => {
+      throw error;
+    });
 
 /**
  * ログアウト
  * 失敗時Errorをthrow
  */
-export const fireAuthLogOut = async () => FireAuth.signOut();
+export const fireAuthLogOut = () => FireAuth.signOut();

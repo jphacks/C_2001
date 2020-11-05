@@ -22,7 +22,6 @@ export interface User {
 
 export interface AuthContextInterface {
   userCredential: UserCredential;
-  onAuthState: (user: User | null | undefined) => void;
   error: firebase.auth.Error | null;
   onLoad: boolean;
 }

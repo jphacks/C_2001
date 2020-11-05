@@ -19,19 +19,14 @@ export const useAuthUsecase = (): AuthContextInterface => {
     status: "out",
     user: null,
   });
-  const [onAuthStateToggle, setOnAuthStateToggle] = React.useState(false);
-
   const [onLoad, setOnLoad] = React.useState<boolean>(false);
   const [error, setError] = React.useState<firebase.auth.Error | null>(null);
-
-  const onAuthState = (credential: User | null | undefined) => {};
 
   React.useEffect(() => {
     setOnLoad(false);
     const unsubscribe = FireAuth.onAuthStateChanged(
       async (user) => {
         setOnLoad(true);
-        console.log("onAuthStateChanged", user);
         const uid = user?.uid;
         if (!uid) {
           setUserCredential({
@@ -82,5 +77,5 @@ export const useAuthUsecase = (): AuthContextInterface => {
     };
   }, []);
 
-  return { userCredential, onAuthState, error, onLoad };
+  return { userCredential, error, onLoad };
 };

@@ -1,21 +1,22 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../../contexts/auth";
 import { useLogIn } from "../../hooks/useLogIn";
 import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Login = () => {
-  const { userCredential } = useAuth();
   const [email, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
+  const [error, setError] = React.useState<any>("");
   const loginFn = useLogIn();
   const history = useHistory();
 
   const submitFn = async () => {
-    await loginFn(email, pass);
-    if (userCredential.status === "in") {
+    try {
+      await loginFn(email, pass);
       history.push(HOME_PATH);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
