@@ -4,6 +4,7 @@
  * サインアップ用のHooks
  *
  */
+
 import { User } from "../../contexts/auth";
 import { fireAuthSignUp } from "../../services/firebase/auth";
 export const useSignUp = () => async (
