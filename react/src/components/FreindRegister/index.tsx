@@ -11,37 +11,41 @@ export const FreindRegister = () => {
                 </Back>
                 <Title>友達追加</Title>
             </Top>
-
             <Form>
                 <Input placeholder="IDで検索する"/>
             </Form>
-
             <Now>
-                <NowFriend>
-                    <FriendText>
-                        <Username>ユーザーネーム</Username>
-                        <UserID>12345-67890</UserID>
-                    </FriendText>
-                </NowFriend>
-                <NowFriend>
-                    <FriendText>
-                        <Username>ユーザーネーム</Username>
-                        <UserID>12345-67890</UserID>
-                    </FriendText>
-                </NowFriend>
+                {(() => {
+                    var list = [];
+                    var data = [
+                        {friendName: "mori", friendID: 123456789},
+                        {friendName: "hayashi", friendID: 987654321},
+                    ];
+                    for (var i in data) {
+                        list.push(
+                            <NowFriend>
+                                <FriendText>
+                                    <Username>{data[i].friendName}</Username>
+                                    <UserID>{data[i].friendID}</UserID>
+                                </FriendText>
+                            </NowFriend>
+                        );
+                    }
+                    return (
+                        <ul>
+                            {list}
+                        </ul>
+                    );
+                })()}
             </Now>
-
         </div>
     );
 };
-
 const Top = styled.div`
     margin-top: 61px;
     padding: 0 25px;
     overflow: hidden;
 `;
-
-
 const Back = styled.button`
     float: left;
     border: none;
@@ -49,7 +53,6 @@ const Back = styled.button`
     background: transparent;
     padding: 0;
 `;
-
 const Title = styled.p`
     text-align: center;
     font-size: 18px;
@@ -59,13 +62,11 @@ const Title = styled.p`
     margin: 0 auto;
     width: 162px;
 `;
-
 const Form = styled.div`
     width: 287px;
     margin: 0px auto 0 auto;
     text-align: center;
 `;
-
 const Input = styled.input`
     size:13;
     maxlength:50;
@@ -82,13 +83,10 @@ const Input = styled.input`
         color: #C4C4C4;
     }
 `;
-
-
 const Now = styled.div`
     width:330px;
     margin: 54px auto 0 auto;
 `;
-
 const NowFriend = styled.button`
     display: flex;
     width: 330px;
@@ -100,19 +98,16 @@ const NowFriend = styled.button`
     margin: 10px auto;
     padding: 0;
 `;
-
 const FriendText = styled.div`
     height: 41px;
     margin: auto 0 auto 36px;
 `;
-
 const Username = styled.p`
     font-size: 18px;
     line-height: 21px;
     color: #343434;
     margin: 0;
 `;
-
 const UserID = styled.p`
     font-size: 13px;
     line-height: 15px;
@@ -120,5 +115,3 @@ const UserID = styled.p`
     margin: 5px 0 0 0;
     text-align: left;
 `;
-
-
