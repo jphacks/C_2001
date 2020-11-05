@@ -4,7 +4,6 @@ import back from "./assets/back.png";
 import status1 from "./assets/status1.png";
 import status2 from "./assets/status2.png";
 import status3 from "./assets/status3.png";
-import icon5 from "../LocationRegister/assets/icon5.png";
 
 export const LocationStatus = () => {
     return (
@@ -166,12 +165,13 @@ const StatusText = styled.div`
 const StatusTextSmall = styled.div`
   height: 56px;
   padding-top: 11px;
+  float: left;
 `;
 
 const StatusKao = styled.img`
   width: 58px;
   height: 56px;
-  margin-left: 56px;
+  margin: 0 0 0 auto;
 `;
 
 const Advaice = styled.p`
@@ -205,6 +205,7 @@ const Koukai1 = styled.button`
   border-radius: 6px;
   text-align: center;
   font-weight: bold;
+  outline: none;
   /* オンの時 */
   background: #fffbed;
   border: 3px solid #ff9900;
@@ -223,6 +224,7 @@ const Koukai2 = styled.button`
   border-radius: 6px;
   text-align: center;
   font-weight: bold;
+  outline: none;
   /* オンの時 */
   /* background: #FFFBED;
     border: 3px solid #FF9900;
