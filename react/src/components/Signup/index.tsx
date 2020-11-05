@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { useSignUp } from "../../hooks/useSignup";
+import { useSignUp } from "../../hooks/useSignUp";
 import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Singup = () => {
