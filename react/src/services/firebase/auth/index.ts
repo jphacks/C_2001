@@ -7,6 +7,7 @@ import FireApp from "../config";
 import firebase from "firebase";
 import { DocData, getDoc, setDoc } from "../store";
 import { USERS_QUERY } from "../../utiils/fireeStoreQuery";
+import { UsersEntity } from "../../utiils/fireStoreEntity";
 
 export const FireAuth = FireApp.auth();
 
@@ -51,8 +52,8 @@ export const fireAuthSignUp = async (
 
         await setDoc(`${USERS_QUERY}/${uid}`, {
           name: name,
-          email: credencial.user?.email,
-        });
+          email: credencial.user?.email ? credencial.user?.email : "",
+        } as UsersEntity);
         return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
       } catch (error) {
         throw error;
