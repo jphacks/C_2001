@@ -94,6 +94,7 @@ export const LocationAdd = () => {
                                                 <LocationText>
                                                     <LocationName>{data[i].LocationName}</LocationName>
                                                 </LocationText>
+                                                <CheckIconOnTemporary src={icon5}/>
                                             </NowLocationOn>
                                         </div>
                                 })()}
@@ -140,51 +141,39 @@ const Title = styled.p`
 `;
 
 const Range = styled.div`
-  margin-top: 35px;
-  text-align: center;
+    margin-top: 35px;
+    text-align: center;
 `;
 
 
 const NowLocationOn = styled.button`
-
-  display: flex;
-  width: 330px;
-  height: 63px;
-  margin: 17px auto;
-  box-sizing: border-box;
-  border-radius: 6px;
-  // text-align: left;
+    display: flex;
+    width: 330px;
+    height: 63px;
+    margin: 17px auto;
+    box-sizing: border-box;
+    border-radius: 6px;
     text-align: center;
-  font-weight: bold;
-  /* オンの時 */
-  background: #fffbed;
-  border: 3px solid #ff9900;
-  color: #343434;
-  /* オフの時 */
-  // background: #FAFAFA;
-  // border: 3px solid #FAFAFA;
-  // color: #C4C4C4;
+    font-weight: bold;
+    // オンの時
+    background: #fffbed;
+    border: 3px solid #ff9900;
+    color: #343434;
 `;
 
 const NowLocationOFF = styled.button`
-
-  display: flex;
-  width: 330px;
-  height: 63px;
-  margin: 17px auto;
-  box-sizing: border-box;
-  border-radius: 6px;
-  // text-align: left;
+    display: flex;
+    width: 330px;
+    height: 63px;
+    margin: 17px auto;
+    box-sizing: border-box;
+    border-radius: 6px;
     text-align: center;
-  font-weight: bold;
-  /* オンの時 */
-  // background: #fffbed;
-  // border: 3px solid #ff9900;
-  // color: #343434;
-  /* オフの時 */
-  background: #FAFAFA;
-  border: 3px solid #FAFAFA;
-  color: #C4C4C4;
+    font-weight: bold;
+    // オフの時
+    background: #FAFAFA;
+    border: 3px solid #FAFAFA;
+    color: #C4C4C4;
 `;
 
 const LocationText = styled.div`
@@ -198,6 +187,7 @@ const LocationName = styled.p`
     line-height: 21px;
     color: #343434;
     margin: 0;
+    text-align:center;
 `;
 
 const LocationIcon = styled.img`
@@ -214,6 +204,13 @@ const CheckIconOn = styled.img`
 `;
 
 const CheckIconOFF = styled.img`
+    visibility:hidden;
+    width: 34px;
+    height: 34px;
+    margin: auto 11px
+`;
+
+const CheckIconOnTemporary = styled.img`
     visibility:hidden;
     width: 34px;
     height: 34px;
