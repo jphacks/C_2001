@@ -10,16 +10,67 @@ export const ChatRoom = () => {
                     <img src={back}/>
                 </Back>
                 <Title>
-                    <Username>キャプテン(ユーザーネーム)</Username>
+                    {(() => {
+                        var list = [];
+
+                        // choice 0 : 相手 , 1 : 自分
+                        var friendName = "もりもり"
+
+                        list.push(
+                            <Username>
+                                {friendName}
+                            </Username>
+                        );
+                        return (
+                            <div>
+                                {list}
+                            </div>
+                        );
+                    })()}
                 </Title>
             </Top>
 
-
             <Content>
-                <ChatMyself>aaaaaa</ChatMyself>
-                <ChatFriends>うおおおおおおおおおおおおおおおおおおおおおおお</ChatFriends>
-                <ChatMyself>aaaaaa</ChatMyself>
-                <ChatMyself>うおおおおおおおおおおおおおおおおおおおおおおお</ChatMyself>
+
+                {(() => {
+                    var list = [];
+
+                    // choice 0 : 相手 , 1 : 自分
+                    var data = [
+                        {comment: "醤油買ってきて", choice: 1},
+                        {comment: "OK", choice: 0},
+                        {comment: "ありがとう", choice: 1},
+                        {comment: "家で待ってる", choice: 1},
+                    ];
+
+                    for (var i in data) {
+                        list.push(
+                            <div>
+                                {(() => {
+                                    if (data[i].choice == 1)
+                                        return <div>
+                                            <ChatMyself>
+                                                {data[i].comment}
+                                            </ChatMyself>
+                                        </div>
+
+                                    else if (data[i].choice == 0)
+                                        return <div>
+                                            <ChatFriends>
+                                                {data[i].comment}
+                                            </ChatFriends>
+                                        </div>
+                                })()}
+                            </div>
+                        );
+                    }
+                    return (
+                        <div>
+                            {list}
+                        </div>
+                    );
+
+                })()}
             </Content>
 
             <Form>
