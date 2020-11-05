@@ -14,39 +14,100 @@ export const LocationAdd = () => {
                 <Title>場所登録</Title>
             </Top>
 
+
             <Range>
-                <NowLocationOn>
-                    <LocationIcon src={icon1}/>
-                    <LocationText>
-                        <LocationName>スーパーマーケット</LocationName>
-                    </LocationText>
-                    <CheckIconOFF src={icon5}/>
-                </NowLocationOn>
+                {(() => {
+                    var list = [];
 
-                <NowLocationOFF>
-                    <LocationIcon src={icon2}/>
-                    <LocationText>
-                        <LocationName>コンビニ</LocationName>
-                    </LocationText>
-                    <CheckIconOn src={icon5}/>
-                </NowLocationOFF>
-                <NowLocationOFF>
-                    <LocationIcon src={icon3}/>
-                    <LocationText>
-                        <LocationName>薬局</LocationName>
-                    </LocationText>
-                    <CheckIconOn src={icon5}/>
-                </NowLocationOFF>
+                    // selection 登録してあれば 1
+                    var data = [
+                        {LocationName: "スーパーマーケット", selection: 0, LocationIng: icon1},
+                        {LocationName: "コンビニ", selection: 1, LocationIng: icon2},
+                        {LocationName: "薬局", selection: 0, LocationIng: icon3},
+                    ];
+
+                    for (var i in data) {
+                        list.push(
+                            <div>
+                                {(() => {
+                                    if (data[i].selection == 0)
+                                        return <div>
+                                            <NowLocationOFF>
+                                                <LocationIcon src={data[i].LocationIng}/>
+                                                <LocationText>
+                                                    <LocationName>{data[i].LocationName}</LocationName>
+                                                </LocationText>
+                                                <CheckIconOn src={icon5}/>
+                                            </NowLocationOFF>
+                                        </div>
+
+                                    else if (data[i].selection == 1)
+                                        return <div>
+                                            <NowLocationOn>
+                                                <LocationIcon src={data[i].LocationIng}/>
+                                                <LocationText>
+                                                    <LocationName>{data[i].LocationName}</LocationName>
+                                                </LocationText>
+                                                <CheckIconOFF src={icon5}/>
+                                            </NowLocationOn>
+                                        </div>
+                                })()}
+                            </div>
+                        );
+                    }
+                    return (
+                        <div>
+                            {list}
+                        </div>
+                    );
+
+                })()}
+
+                {(() => {
+                    var list = [];
+                    // selection 登録してあれば 1
+                    var data = [
+                        {LocationName: "○○デパート", selection: 0},
+                        {LocationName: "○○コンビニ", selection: 1},
+                    ];
+
+                    for (var i in data) {
+
+                        list.push(
+                            <div>
+                                {(() => {
+                                    if (data[i].selection == 0)
+                                        return <div>
+                                            <NowLocationOFF>
+                                                <LocationIcon src={icon4}/>
+                                                <LocationText>
+                                                    <LocationName>{data[i].LocationName}</LocationName>
+                                                </LocationText>
+                                                <CheckIconOn src={icon5}/>
+                                            </NowLocationOFF>
+                                        </div>
+
+                                    else if (data[i].selection == 1)
+                                        return <div>
+                                            <NowLocationOn>
+                                                <LocationIcon src={icon4}/>
+                                                <LocationText>
+                                                    <LocationName>{data[i].LocationName}</LocationName>
+                                                </LocationText>
+                                            </NowLocationOn>
+                                        </div>
+                                })()}
+                            </div>
+                        );
+                    }
+                    return (
+                        <div>
+                            {list}
+                        </div>
+                    );
+                })()}
 
 
-                {/* ここにどんどん追加されていく */}
-                <NowLocationOFF>
-                    <LocationIcon src={icon4}/>
-                    <LocationText>
-                        <LocationName>○○デパート</LocationName>
-                    </LocationText>
-                    <CheckIconOn src={icon5}/>
-                </NowLocationOFF>
             </Range>
             <Range>
                 <NowLocationOFF>
