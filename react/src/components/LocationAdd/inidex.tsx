@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../../contexts/auth";
-import { useLocations } from "../../hooks/useLocations";
-import { FRIEND_LOCATION_PATH } from "../../services/utiils/routeUrlPath";
+import {useAuth} from "../../contexts/auth";
+import {useLocations} from "../../hooks/useLocations";
+import {FRIEND_LOCATION_PATH} from "../../services/utiils/routeUrlPath";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";
@@ -12,48 +12,48 @@ import icon5 from "./assets/icon5.png";
 import icon6 from "./assets/icon6.png";
 
 const localStoreData = {
-  superMaquette: {
-    LocationName: "スーパーマーケット",
-    LocationIcon: icon1,
-  },
-  convenienceStore: {
-    LocationName: "コンビニ",
-    LocationIcon: icon2,
-  },
-  drugstore: {
-    LocationName: "薬局",
-    LocationIcon: icon3,
-  },
+    superMaquette: {
+        LocationName: "スーパーマーケット",
+        LocationIcon: icon1,
+    },
+    convenienceStore: {
+        LocationName: "コンビニ",
+        LocationIcon: icon2,
+    },
+    drugstore: {
+        LocationName: "薬局",
+        LocationIcon: icon3,
+    },
 };
 
 export const LocationAdd = () => {
-  const { locations, fetchLocation } = useLocations();
-  const { userCredential } = useAuth();
-  const history = useHistory();
+    const {locations, fetchLocation} = useLocations();
+    const {userCredential} = useAuth();
+    const history = useHistory();
 
-  const linkToLocationReq = (location: string, type: string = "default") => {
-    history.push(FRIEND_LOCATION_PATH);
-  };
+    const linkToLocationReq = (location: string, type: string = "default") => {
+        history.push(FRIEND_LOCATION_PATH);
+    };
 
-  React.useEffect(() => {
-    if (!userCredential.user?.id) return;
-    fetchLocation(userCredential.user.id);
-  }, [userCredential.user]);
-  return (
-    <div>
-      <Top>
-        <Title>場所登録</Title>
-      </Top>
+    React.useEffect(() => {
+        if (!userCredential.user?.id) return;
+        fetchLocation(userCredential.user.id);
+    }, [userCredential.user]);
+    return (
+        <div>
+            <Top>
+                <Title>場所登録</Title>
+            </Top>
 
-      <Range>
-        <NowLocationOFF>
-          <LocationIcon src={icon4} />
-          <LocationText>
-            <LocationName>特定の場所を登録する</LocationName>
-          </LocationText>
-          <CheckIconOn src={icon6} />
-        </NowLocationOFF>
-        {/* {(() => {
+            <Range>
+                <NowLocationOFF>
+                    <LocationIcon src={icon4}/>
+                    <LocationText>
+                        <LocationName>特定の場所を登録する</LocationName>
+                    </LocationText>
+                    <CheckIconOn src={icon6}/>
+                </NowLocationOFF>
+                {/* {(() => {
           var list = [];
 
           // selection 登録してあれば 1
@@ -144,40 +144,40 @@ export const LocationAdd = () => {
           return <div>{list}</div>;
         })()} */}
 
-        {locations.defaultLocations.map((d, i) => {
-          return (
-            <NowLocationOFF
-              key={i}
-              onClick={() => {
-                linkToLocationReq(d);
-              }}
-            >
-              <LocationIcon src={localStoreData[d].LocationIcon} />
-              <LocationText>
-                <LocationName>{localStoreData[d].LocationName}</LocationName>
-              </LocationText>
-              <CheckIconOn src={icon5} />
-            </NowLocationOFF>
-          );
-        })}
+                {locations.defaultLocations.map((d, i) => {
+                    return (
+                        <NowLocationOFF
+                            key={i}
+                            onClick={() => {
+                                linkToLocationReq(d);
+                            }}
+                        >
+                            <LocationIcon src={localStoreData[d].LocationIcon}/>
+                            <LocationText>
+                                <LocationName>{localStoreData[d].LocationName}</LocationName>
+                            </LocationText>
+                            <CheckIconOn src={icon5}/>
+                        </NowLocationOFF>
+                    );
+                })}
 
-        {locations.originalLocations.length !== 0 &&
-          locations.originalLocations.map((d, i) => {
-            console.log(d);
-            if (!d) return <></>;
-            return (
-              <NowLocationOFF key={i}>
-                <LocationIcon src={icon4} />
-                <LocationText>
-                  <LocationName>{d.name}</LocationName>
-                </LocationText>
-                <CheckIconOn src={icon5} />
-              </NowLocationOFF>
-            );
-          })}
-      </Range>
-    </div>
-  );
+                {locations.originalLocations.length !== 0 &&
+                locations.originalLocations.map((d, i) => {
+                    console.log(d);
+                    if (!d) return <></>;
+                    return (
+                        <NowLocationOFF key={i}>
+                            <LocationIcon src={icon4}/>
+                            <LocationText>
+                                <LocationName>{d.name}</LocationName>
+                            </LocationText>
+                            <CheckIconOn src={icon5}/>
+                        </NowLocationOFF>
+                    );
+                })}
+            </Range>
+        </div>
+    );
 };
 
 const Top = styled.div`
@@ -248,10 +248,11 @@ const LocationText = styled.div`
 `;
 
 const LocationName = styled.p`
-  font-size: 18px;
-  line-height: 21px;
-  color: #343434;
-  margin: 0;
+    font-size: 18px;
+    line-height: 21px;
+    color: #343434;
+    margin: 0;
+    text-align:center;
 `;
 
 const LocationIcon = styled.img`
