@@ -8,7 +8,6 @@ import chat1 from "./assets/chat1.png";
 export const FriendLocation = () => {
     return (
         <div>
-
             <Top>
                 <Back>
                     <img src={back}/>
@@ -18,25 +17,61 @@ export const FriendLocation = () => {
 
             <Now>
                 <Headline>いまいるかも！</Headline>
-                <NowFriend>
-                    <FriendText>
-                        <Username>キャプテン</Username>
-                        <Time>12:00</Time>
-                    </FriendText>
-                    <ChatIcon src={chat2}/>
-                </NowFriend>
+                {(() => {
+                    var list = [];
+                    var data = [
+                        {friendName: "mori", friendID: 123456789},
+                        {friendName: "hayashi", friendID: 987654321},
+                    ];
+                    for (var i in data) {
+                        list.push(
+                            <div>
+                                <NowFriend>
+                                    <FriendText>
+                                        <Username>{data[i].friendName}</Username>
+                                        <Time>12:00</Time>
+                                    </FriendText>
+                                    <ChatIcon src={chat2}/>
+                                </NowFriend>
+
+                            </div>
+                        );
+                    }
+                    return (
+                        <ul>
+                            {list}
+                        </ul>
+                    );
+                })()}
             </Now>
 
             <Past>
                 <Headline>さっきまでいたかも！</Headline>
-                <PastFriend>
-                    <FriendText>
-                        <Username>キャプテン</Username>
-                        <Time>12:00</Time>
-                    </FriendText>
-                    <ChatIcon src={chat1}/>
-                </PastFriend>
-
+                {(() => {
+                    var list = [];
+                    var data = [
+                        {friendName: "mori", friendID: 123456789},
+                        {friendName: "hayashi", friendID: 987654321},
+                    ];
+                    for (var i in data) {
+                        list.push(
+                            <div>
+                                <PastFriend>
+                                    <FriendText>
+                                        <Username>{data[i].friendName}</Username>
+                                        <Time>12:00</Time>
+                                    </FriendText>
+                                    <ChatIcon src={chat1}/>
+                                </PastFriend>
+                            </div>
+                        );
+                    }
+                    return (
+                        <ul>
+                            {list}
+                        </ul>
+                    );
+                })()}
             </Past>
         </div>
     );
@@ -91,7 +126,7 @@ const NowFriend = styled.button`
     border: 3px solid #FF9900;
     box-sizing: border-box;
     border-radius: 6px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 0;
 `;
 
@@ -127,7 +162,9 @@ const PastFriend = styled.div`
     height: 94px;
     background: #FAFAFA;
     box-sizing: border-box;
+    border: 3px solid #C4C4C4;
     border-radius: 6px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 0;
 `;
+
