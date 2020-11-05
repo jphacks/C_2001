@@ -1,13 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../../contexts/auth";
 
 import { useSignUp } from "../../hooks/useSignup";
 import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Singup = () => {
-  const { userCredential } = useAuth();
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
@@ -18,11 +16,9 @@ export const Singup = () => {
   const submitFn = async () => {
     try {
       await signUpFn(email, pass, username);
-      if (userCredential.status === "in") {
-        history.push(HOME_PATH);
-      }
+      history.push(HOME_PATH);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
