@@ -4,44 +4,105 @@ import back from "./assets/back.png";
 import status1 from "./assets/status1.png";
 import status2 from "./assets/status2.png";
 import status3 from "./assets/status3.png";
+import icon5 from "../LocationRegister/assets/icon5.png";
 
 export const LocationStatus = () => {
-  return (
-    <div>
-      <Top>
-        <Back src={back} alt="back" />
-        <Title>位置情報ステータス</Title>
-      </Top>
+    return (
+        <div>
+            <Top>
+                <Back src={back} alt="back"/>
+                <Title>位置情報ステータス</Title>
+            </Top>
 
-      <StatusBox>
-        <StatusText>
-          <StatusTextSmall>
-            <Subtitle>位置情報ステータス</Subtitle>
-            <Status>スリープモード</Status>
-          </StatusTextSmall>
-          {/*スリープモードの時の顔*/}
-          <StatusKao src={status1} />
+            {(() => {
+                var list = [];
 
-          {/*違うステータスの時の顔*/}
-          {/*<Status_kao src={status2} />*/}
+                // 位置 目的地非到達 0
+                // 位置 目的地到達 1
+                // 位置非公開 2
+                var status = 1
+                list.push(
+                    <div>
+                        {(() => {
+                            if (status == 0)
+                                return <div>
+                                    <StatusBox>
+                                        <StatusText>
+                                            <StatusTextSmall>
+                                                <Subtitle>位置情報ステータス</Subtitle>
+                                                <Status>スリープモード</Status>
+                                            </StatusTextSmall>
+                                            <StatusKao src={status1}/>
+                                        </StatusText>
+                                        <Advaice>買い物に出かけるとステータスが変わるよ！</Advaice>
+                                    </StatusBox>
+                                    <Range>
+                                        <Koukai>ステータスの公開範囲</Koukai>
+                                        <Koukai1>
+                                            <p>友だち全員に公開</p>
+                                        </Koukai1>
+                                        <Koukai2>
+                                            <p>誰にも公開しない(非公開)</p>
+                                        </Koukai2>
+                                    </Range>
+                                </div>
 
-          {/*非公開の時の顔*/}
-          {/*<Status_kao src={status3} />*/}
-        </StatusText>
-        <p className="advaice">買い物に出かけるとステータスが変わるよ！</p>
-      </StatusBox>
+                            else if (status == 1)
+                                return <div>
+                                    <StatusBox>
+                                        <StatusText>
+                                            <StatusTextSmall>
+                                                <Subtitle>位置情報ステータス</Subtitle>
+                                                <Status>スーパーマーケット</Status>
+                                            </StatusTextSmall>
+                                            <StatusKao src={status2}/>
+                                        </StatusText>
+                                        <Advaice>買い物中のためステータス公開中!!</Advaice>
+                                    </StatusBox>
+                                    <Range>
+                                        <Koukai>ステータスの公開範囲</Koukai>
+                                        <Koukai1>
+                                            <p>友だち全員に公開</p>
+                                        </Koukai1>
+                                        <Koukai2>
+                                            <p>誰にも公開しない(非公開)</p>
+                                        </Koukai2>
+                                    </Range>
+                                </div>
 
-      <Range>
-        <Koukai>ステータスの公開範囲</Koukai>
-        <Koukai1>
-          <p>友だち全員に公開</p>
-        </Koukai1>
-        <Koukai2>
-          <p>誰にも公開しない(非公開)</p>
-        </Koukai2>
-      </Range>
-    </div>
-  );
+                            else
+                                return <div>
+                                    <StatusBox>
+                                        <StatusText>
+                                            <StatusTextSmall>
+                                                <Subtitle>位置情報ステータス</Subtitle>
+                                                <Status>非公開</Status>
+                                            </StatusTextSmall>
+                                            <StatusKao src={status3}/>
+                                        </StatusText>
+                                        <Advaice>ステータス非公開モード</Advaice>
+                                    </StatusBox>
+                                    <Range>
+                                        <Koukai>ステータスの公開範囲</Koukai>
+                                        <Koukai2>
+                                            <p>友だち全員に公開</p>
+                                        </Koukai2>
+                                        <Koukai1>
+                                            <p>誰にも公開しない(非公開)</p>
+                                        </Koukai1>
+                                    </Range>
+                                </div>
+                        })()}
+                    </div>
+                );
+                return (
+                    <div>
+                        {list}
+                    </div>
+                );
+            })()}
+        </div>
+    );
 };
 
 const Top = styled.div`
