@@ -1,17 +1,22 @@
 import React from "react";
 import { createCtx } from "../../services/utils/createCtx";
-import { RequestNoticesEntiity } from "../../services/utils/fireStoreEntity";
-import { Weaken } from "../../services/utils/Weaken";
 
-export interface RequestNotices
-  extends Weaken<RequestNoticesEntiity, "currentLoction" | "lastChange"> {
-  currentLoction: {
-    latitude: number; // 緯度
-    longitude: number; // 経度
+export interface Candidates {
+  [k: string]: {
+    now: Array<string>;
+    before: Array<string>;
   };
-  lastChange: Date;
 }
 
-export const ErrandProvider: React.FC = () => {
-  return <div></div>;
+export interface ErrandContextInterface {
+  candidates: Candidates;
+  listen: boolean;
+}
+
+const [useErrand, ErrandContext] = createCtx<ErrandContextInterface>();
+
+const ErrandProvider: React.FC = ({ children }) => {
+  return <div>{children}</div>;
 };
+
+export { ErrandContext, ErrandProvider, useErrand };

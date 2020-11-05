@@ -124,7 +124,7 @@ export const updateDoc = async (
   option?: any
 ): Promise<void> => {
   try {
-    return getBaseDoc(path).update(query);
+    return getBaseDoc(path).set(query, { merge: true });
   } catch (error) {
     throw error;
   }
@@ -165,7 +165,7 @@ export const updateSubDoc = async (
   option?: any
 ): Promise<void> => {
   try {
-    return getBaseSubDoc(path).update(query);
+    return getBaseSubDoc(path).set(query, { merge: true });
   } catch (error) {
     throw error;
   }

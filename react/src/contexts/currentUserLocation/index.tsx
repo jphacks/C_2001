@@ -1,8 +1,10 @@
 import React from "react";
 import { createCtx } from "../../services/utils/createCtx";
 
-import { useListenReqNotice } from "../../services/usecase/currentUserLocation";
-import { RequestNotices } from "../errand";
+import {
+  RequestNotices,
+  useListenReqNotice,
+} from "../../services/usecase/currentUserLocation";
 
 export interface CurrentUserLocationContextInterface {
   requestNotice: RequestNotices | null;
