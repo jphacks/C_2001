@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import back from "./assets/back.png";
-import icon1 from "../LocationAdd/assets/icon1.png";
-import icon2 from "../LocationAdd/assets/icon2.png";
-import icon3 from "../LocationAdd/assets/icon3.png";
-import icon5 from "../LocationAdd/assets/icon5.png";
 
 export const ChatRoom = () => {
     return (
