@@ -67,7 +67,7 @@ export const getCollection = async (
 export const setCollection = async (
   path: string,
   query: SetFql,
-  option: any
+  option?: any
 ): Promise<string> => {
   try {
     const ref = await getBaseCollection(path).add(query);
@@ -81,7 +81,7 @@ export const getSubCollection = async (
   path: string
 ): Promise<Array<DocData> | null> => {
   try {
-    const snapShot = await getBaseSubCollection(path).get();
+    const snapShot = await getBaseSubCollection(path).get({});
     return snapShot.empty
       ? null
       : snapShot.docs.map((doc: firebase.firestore.DocumentData) => ({

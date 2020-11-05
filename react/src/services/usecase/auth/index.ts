@@ -5,11 +5,7 @@
  */
 import React from "react";
 import firebase from "firebase";
-import {
-  AuthContextInterface,
-  User,
-  UserCredential,
-} from "../../../contexts/auth";
+import { AuthContextInterface, UserCredential } from "../../../contexts/auth";
 import { FireAuth } from "../../firebase/auth";
 import { getDoc, setDoc } from "../../firebase/store";
 import { USERS_QUERY } from "../../utiils/fireeStoreQuery";
