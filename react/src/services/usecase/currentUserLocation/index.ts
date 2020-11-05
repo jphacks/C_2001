@@ -1,12 +1,25 @@
 import React, { useState } from "react";
-import { setDoc, updateDoc, subscribeDocSnapshoot } from "../../firebase/store";
+import { updateDoc, subscribeDocSnapshoot } from "../../firebase/store";
 import firebase from "firebase";
-import { REQUEST_NOTICES_QUERY } from "../../utils/fireeStoreQuery";
+import {
+  REQUEST_NOTICES_QUERY,
+  RESPONCE_NOTICES_QUERY,
+} from "../../utils/fireeStoreQuery";
 import { RequestNoticesEntiity } from "../../utils/fireStoreEntity";
-import { RequestNotices } from "../../../contexts/errand";
+
 import { useAuth } from "../../../hooks/useAuth";
 import { timestampToDateRecursively } from "../../utils/timestampToDateRecursively";
 import { useGeolocation } from "../../../hooks/useGeolocation";
+import { Weaken } from "../../utils/Weaken";
+
+export interface RequestNotices
+  extends Weaken<RequestNoticesEntiity, "currentLoction" | "lastChange"> {
+  currentLoction: {
+    latitude: number; // 緯度
+    longitude: number; // 経度
+  };
+  lastChange: Date;
+}
 
 export const useListenReqNotice = () => {
   const { userCredential } = useAuth();
@@ -28,15 +41,27 @@ export const useListenReqNotice = () => {
 
         const data = snapshot.data() as RequestNoticesEntiity;
 
-        if (data.requestStatus === "request") {
+        if (data.requestStatus.type === "request") {
           updateDoc(`${REQUEST_NOTICES_QUERY}/${userCredential.user.id}`, {
-            requestStatus: "responce",
-            lastChange: firebase.firestore.FieldValue.serverTimestamp(),
+            requestStatus: {
+              type: "responce",
+              clientUserId: "",
+            },
+            lastChange: new Date(),
             currentLoction: new firebase.firestore.GeoPoint(
               geolocation.latitude ? geolocation.latitude : 0,
               geolocation.longitude ? geolocation.longitude : 0
             ),
           });
+
+          updateDoc(
+            `${RESPONCE_NOTICES_QUERY}/${data.requestStatus.clientUserId}`,
+            {
+              survivors: firebase.firestore.FieldValue.arrayUnion(
+                userCredential.user.id
+              ),
+            }
+          );
           return;
         }
 

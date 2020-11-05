@@ -5,9 +5,8 @@ export interface UsersEntity {
   name: string;
 }
 
-export interface FriendsList {
+export interface FriendsListEntity {
   chatRoomId: string;
-  name: string;
 }
 
 export interface ChatRoomsEntity {
@@ -37,10 +36,14 @@ export interface RequestNoticesEntiity {
     drugstore: boolean;
     superMaquette: boolean;
   };
-  requestStatus: "none" | "request" | "responce";
+  requestStatus: {
+    clientUserId: string;
+    type: "none" | "request" | "responce";
+  };
+
   userStatus: {
     clientUserId: string;
-    type: "public" | "private" | "requested" | "contracted";
+    type: "public" | "private" | "request" | "contract";
   };
 }
 
@@ -58,4 +61,8 @@ export interface OriginalLocationsEntity {
   // longitude : 経度
 
   name: string;
+}
+
+export interface ResponceNoticeEntity {
+  candidates: Array<string>;
 }
