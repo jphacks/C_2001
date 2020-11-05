@@ -1,9 +1,9 @@
 import React from "react";
 import {Link, useHistory} from "react-router-dom";
 import styled from "styled-components";
-import {useAuth} from "../../contexts/auth";
-import {useLocations} from "../../hooks/useLocations";
-import {FRIEND_LOCATION_PATH} from "../../services/utiils/routeUrlPath";
+import { useAuth } from "../../contexts/auth";
+import { useLocations } from "../../hooks/useLocations";
+import { FRIEND_LOCATION_PATH } from "../../services/utils/routeUrlPath";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";

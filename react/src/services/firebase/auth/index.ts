@@ -6,8 +6,8 @@
 import FireApp from "../config";
 import firebase from "firebase";
 import { DocData, getDoc, setDoc } from "../store";
-import { USERS_QUERY } from "../../utiils/fireeStoreQuery";
-import { UsersEntity } from "../../utiils/fireStoreEntity";
+import { USERS_QUERY } from "../../utils/fireeStoreQuery";
+import { UsersEntity } from "../../utils/fireStoreEntity";
 
 export const FireAuth = FireApp.auth();
 

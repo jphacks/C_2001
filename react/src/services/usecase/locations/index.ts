@@ -5,7 +5,7 @@ import {
   LocationsContextInterface,
 } from "../../../contexts/location";
 import { getSubCollection, setCollection } from "../../firebase/store";
-import { ORIGINAL_LOCATION_QUERY } from "../../utiils/fireeStoreQuery";
+import { ORIGINAL_LOCATION_QUERY } from "../../utils/fireeStoreQuery";
 
 export const useLocationsUsecase = (): LocationsContextInterface => {
   const [locations, setLocations] = React.useState<Locations>({

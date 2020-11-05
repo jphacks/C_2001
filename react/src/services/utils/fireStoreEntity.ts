@@ -28,17 +28,16 @@ export interface MessagesEntity {
 }
 
 export interface RequestNoticesEntiity {
-  currentLoction: {
-    latitude: number; // 緯度
-    longitude: number; // 経度
-  };
+  currentLoction: firebase.firestore.GeoPoint;
+  // latitude : 緯度
+  // longitude : 経度
   lastChange: firebase.firestore.Timestamp;
   locationStatus: {
     convenienceStore: boolean;
     drugstore: boolean;
     superMaquette: boolean;
   };
-  requestStatus: "none" | "requested" | "responseed";
+  requestStatus: "none" | "request" | "responce";
   userStatus: {
     clientUserId: string;
     type: "public" | "private" | "requested" | "contracted";
@@ -54,9 +53,9 @@ export interface NoticesEntity {
 }
 
 export interface OriginalLocationsEntity {
-  locationPoint: {
-    latitude: number; // 緯度
-    longitude: number; // 経度
-  };
+  locationPoint: firebase.firestore.GeoPoint;
+  // latitude : 緯度
+  // longitude : 経度
+
   name: string;
 }

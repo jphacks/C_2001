@@ -6,10 +6,13 @@
 import React from "react";
 import { AuthProvider } from "../../contexts/auth";
 import { LocationsProvider } from "../../contexts/location";
+import { CurrentUserLocationProvider } from "../../contexts/currentUserLocation";
 export const GlobalContext: React.FC = ({ children }) => {
   return (
     <AuthProvider>
-      <LocationsProvider>{children}</LocationsProvider>
+      <LocationsProvider>
+        <CurrentUserLocationProvider>{children}</CurrentUserLocationProvider>
+      </LocationsProvider>
     </AuthProvider>
   );
 };

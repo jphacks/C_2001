@@ -1,7 +1,7 @@
 import React from "react";
 import { Home } from "../Home";
 import { Navigation } from "../Navigation";
-import * as urls from "../../services/utiils/routeUrlPath";
+import * as urls from "../../services/utils/routeUrlPath";
 import { useAuth } from "../../contexts/auth";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
