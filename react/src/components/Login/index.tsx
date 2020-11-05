@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useLogIn } from "../../hooks/useLogIn";
-import { HOME_PATH } from "../../services/utiils/routeUrlPath";
+import { HOME_PATH } from "../../services/utils/routeUrlPath";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");

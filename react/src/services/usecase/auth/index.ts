@@ -8,7 +8,7 @@ import firebase from "firebase";
 import { AuthContextInterface, UserCredential } from "../../../contexts/auth";
 import { FireAuth } from "../../firebase/auth";
 import { getDoc, setDoc } from "../../firebase/store";
-import { USERS_QUERY } from "../../utiils/fireeStoreQuery";
+import { USERS_QUERY } from "../../utils/fireeStoreQuery";
 
 export const useAuthUsecase = (): AuthContextInterface => {
   const [userCredential, setUserCredential] = React.useState<UserCredential>({

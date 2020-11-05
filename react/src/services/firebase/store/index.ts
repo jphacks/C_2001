@@ -252,3 +252,12 @@ export const subscribeCollection = async (
     }
   });
 };
+
+export const subscribeDocSnapshoot = (
+  path: string,
+  callback: (
+    snapshot: firebase.firestore.DocumentSnapshot<
+      firebase.firestore.DocumentData
+    >
+  ) => void
+) => getBaseDoc(path).onSnapshot((snap) => callback(snap));

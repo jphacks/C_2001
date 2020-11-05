@@ -5,13 +5,21 @@
  */
 import React from "react";
 import { useLocationsUsecase } from "../../services/usecase/locations";
-import { createCtx } from "../../services/utiils/createCtx";
+import { createCtx } from "../../services/utils/createCtx";
 
-import { OriginalLocationsEntity } from "../../services/utiils/fireStoreEntity";
+import { OriginalLocationsEntity } from "../../services/utils/fireStoreEntity";
+import { Weaken } from "../../services/utils/Weaken";
 
+export interface OriginalLocations
+  extends Weaken<OriginalLocationsEntity, "locationPoint"> {
+  locationPoint: {
+    latitude: number; // 緯度
+    longitude: number; // 経度
+  };
+}
 export interface Locations {
   defaultLocations: ["superMaquette", "convenienceStore", "drugstore"];
-  originalLocations: Array<OriginalLocationsEntity | null>;
+  originalLocations: Array<OriginalLocations | null>;
 }
 
 export interface LocationsContextInterface {

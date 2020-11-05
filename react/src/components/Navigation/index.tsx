@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import * as urls from "../../services/utiils/routeUrlPath";
+import * as urls from "../../services/utils/routeUrlPath";
 
 import HomeIcon from "./assets/home.svg";
 import LocationIcon from "./assets/location.svg";

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Root } from "./components/Root";
 import reportWebVitals from "./reportWebVitals";
-import { GlobalContext } from "./services/utiils/globalContext";
+import { GlobalContext } from "./services/utils/globalContext";
 
 ReactDOM.render(
   <React.StrictMode>

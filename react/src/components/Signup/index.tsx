@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { useSignUp } from "../../hooks/useSignUp";
-import { HOME_PATH } from "../../services/utiils/routeUrlPath";
+import { HOME_PATH } from "../../services/utils/routeUrlPath";
 
 export const Singup = () => {
   const [username, setUsername] = React.useState("");

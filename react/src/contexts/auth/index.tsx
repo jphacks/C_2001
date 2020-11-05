@@ -5,7 +5,7 @@
  *
  */
 import React from "react";
-import { createCtx } from "../../services/utiils/createCtx";
+import { createCtx } from "../../services/utils/createCtx";
 import { useAuthUsecase } from "../../services/usecase/auth";
 import firebase from "firebase";
 
