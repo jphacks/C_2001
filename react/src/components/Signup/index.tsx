@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../../contexts/auth";
 
-import { useSignUp } from "../../hooks/useSignUp";
+import { useSignUp } from "../../hooks/useSignup";
 import { HOME_PATH } from "../../services/utiils/routeUrlPath";
 
 export const Singup = () => {
