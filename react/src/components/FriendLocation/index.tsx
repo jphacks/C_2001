@@ -18,7 +18,6 @@ export const FriendLocation = () => {
   } = useErrand();
 
   React.useEffect(() => {
-    console.log(friend, locations);
     requestToCandidatesFn(currentRequestLocation);
     listenResponseStateFn(currentRequestLocation);
   }, []);

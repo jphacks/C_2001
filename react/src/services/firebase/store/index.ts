@@ -93,6 +93,8 @@ export const getSubCollection = async (
   }
 };
 
+export const getSubCollectionRef = (path: string) => getBaseSubCollection(path);
+
 export const setSubCollection = async (
   path: string,
   query: SetFql,

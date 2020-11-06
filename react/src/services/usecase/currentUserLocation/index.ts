@@ -30,8 +30,6 @@ export const useListenReqNoticeUsecase = () => {
 
         const data = snapshot.data() as RequestNoticesEntiity;
 
-        console.log("listen Request Notice");
-
         if (data.requestStatus.type === "request") {
           updateDoc(`${REQUEST_NOTICES_QUERY}/${userCredential.user.id}`, {
             requestStatus: {
