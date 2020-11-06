@@ -1,4 +1,4 @@
-export const ROOT_PATH: string = "/root";
+export const ROOT_PATH: string = "/";
 export const HOME_PATH: string = "/home";
 export const LOCATION_STATUS_PATH: string = "/location-status";
 export const LOCATION_ADD_PATH: string = "/location-add";
