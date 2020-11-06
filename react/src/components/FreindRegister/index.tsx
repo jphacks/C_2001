@@ -1,21 +1,52 @@
 import React from "react";
 import styled from "styled-components";
+import { useSearchUserWithEmail } from "../../hooks/useSearchUserWithEmail";
 import back from "./assets/back.png";
 
+const TIMEOUT_COUNT = 2000;
+const regEmail = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 export const FreindRegister = () => {
+  const { foundUsers, searchUsersFn } = useSearchUserWithEmail();
+
+  const [cleanTimoutId, setCleanTimoutId] = React.useState(0);
+
+  const onSearchFn = (e: string) => {
+    if (!e.match(regEmail)) return;
+    searchUsersFn(e);
+  };
+
+  const onChangedFn = (e: React.FormEvent<HTMLInputElement>) => {
+    clearTimeout(cleanTimoutId);
+    console.log(cleanTimoutId);
+    setCleanTimoutId(
+      setTimeout(onSearchFn, TIMEOUT_COUNT, e.currentTarget.value)
+    );
+  };
+
   return (
     <div>
       <Top>
         <Back>
-          <img src={back} />
+          <img src={back} alt="back" />
         </Back>
         <Title>友達追加</Title>
       </Top>
       <Form>
-        <Input placeholder="メールアドレスで検索する" />
+        <Input placeholder="メールアドレスで検索する" onChange={onChangedFn} />
       </Form>
+
       <Now>
-        {(() => {
+        {foundUsers.length !== 0 &&
+          foundUsers.map((u, i) => (
+            <NowFriend key={i}>
+              <FriendText>
+                <Username>{u.name}</Username>
+                <UserID>{u.id}</UserID>
+              </FriendText>
+            </NowFriend>
+          ))}
+        {/* {(() => {
           var list = [];
           var data = [
             { friendName: "mori", friendID: 123456789 },
@@ -32,7 +63,7 @@ export const FreindRegister = () => {
             );
           }
           return <ul>{list}</ul>;
-        })()}
+        })()} */}
       </Now>
     </div>
   );
@@ -101,6 +132,7 @@ const NowFriend = styled.button`
   margin: 10px auto;
   padding: 0;
   outline: none;
+  text-align: left;
 `;
 
 const FriendText = styled.div`
