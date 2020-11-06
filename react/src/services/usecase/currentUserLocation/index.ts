@@ -10,26 +10,15 @@ import { RequestNoticesEntiity } from "../../utils/fireStoreEntity";
 import { useAuth } from "../../../hooks/useAuth";
 import { timestampToDateRecursively } from "../../utils/timestampToDateRecursively";
 import { useGeolocation } from "../../../hooks/useGeolocation";
-import { Weaken } from "../../utils/Weaken";
+import { RequestNotices } from "../../../contexts/currentUserLocation";
 
-export interface RequestNotices
-  extends Weaken<RequestNoticesEntiity, "currentLoction" | "lastChange"> {
-  currentLoction: {
-    latitude: number; // 緯度
-    longitude: number; // 経度
-  };
-  lastChange: Date;
-}
-
-export const useListenReqNotice = () => {
+export const useListenReqNoticeUsecase = () => {
   const { userCredential } = useAuth();
   const [requestNotice, setRequestNotice] = useState<RequestNotices | null>(
     null
   );
 
   const geolocation = useGeolocation();
-
-  console.log("geolocation", geolocation);
 
   React.useEffect(() => {
     if (!userCredential.user?.id) return;
@@ -40,6 +29,8 @@ export const useListenReqNotice = () => {
         if (!(snapshot.exists && userCredential.user?.id)) return;
 
         const data = snapshot.data() as RequestNoticesEntiity;
+
+        console.log("listen Request Notice");
 
         if (data.requestStatus.type === "request") {
           updateDoc(`${REQUEST_NOTICES_QUERY}/${userCredential.user.id}`, {
@@ -57,7 +48,7 @@ export const useListenReqNotice = () => {
           updateDoc(
             `${RESPONCE_NOTICES_QUERY}/${data.requestStatus.clientUserId}`,
             {
-              survivors: firebase.firestore.FieldValue.arrayUnion(
+              candidates: firebase.firestore.FieldValue.arrayUnion(
                 userCredential.user.id
               ),
             }
@@ -86,7 +77,6 @@ export const useListenReqNotice = () => {
     );
 
     return () => {
-      console.log("useListenReqNotice ", "unsubscribe");
       unsubscribe();
     };
   }, [userCredential.user]);

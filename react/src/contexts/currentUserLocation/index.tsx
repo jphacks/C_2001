@@ -1,10 +1,16 @@
 import React from "react";
 import { createCtx } from "../../services/utils/createCtx";
-
-import {
-  RequestNotices,
-  useListenReqNotice,
-} from "../../services/usecase/currentUserLocation";
+import { RequestNoticesEntiity } from "../../services/utils/fireStoreEntity";
+import { useListenReqNoticeUsecase } from "../../services/usecase/currentUserLocation";
+import { Weaken } from "../../services/utils/Weaken";
+export interface RequestNotices
+  extends Weaken<RequestNoticesEntiity, "currentLoction" | "lastChange"> {
+  currentLoction: {
+    latitude: number; // 緯度
+    longitude: number; // 経度
+  };
+  lastChange: Date;
+}
 
 export interface CurrentUserLocationContextInterface {
   requestNotice: RequestNotices | null;
@@ -15,9 +21,9 @@ const [useCurrentUserLocation, CurrentUserLocationContext] = createCtx<
 >();
 
 const CurrentUserLocationProvider: React.FC = ({ children }) => {
-  const geolocation = useListenReqNotice();
+  const requestNotice = useListenReqNoticeUsecase();
   return (
-    <CurrentUserLocationContext.Provider value={geolocation}>
+    <CurrentUserLocationContext.Provider value={requestNotice}>
       {children}
     </CurrentUserLocationContext.Provider>
   );

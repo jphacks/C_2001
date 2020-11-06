@@ -3,20 +3,50 @@ import styled from "styled-components";
 import back from "./assets/back.png";
 import chat2 from "./assets/chat2.png";
 import chat1 from "./assets/chat1.png";
+import { useFriendList } from "../../hooks/useFriendList";
+import { useLocations } from "../../hooks/useLocations";
+import { useErrand } from "../../hooks/useErrand";
 
 export const FriendLocation = () => {
+  const friend = useFriendList();
+  const { locations } = useLocations();
+  const {
+    candidates,
+    currentRequestLocation,
+    requestToCandidatesFn,
+    listenResponseStateFn,
+  } = useErrand();
+
+  React.useEffect(() => {
+    console.log(friend, locations);
+    requestToCandidatesFn(currentRequestLocation);
+    listenResponseStateFn(currentRequestLocation);
+  }, []);
+
   return (
     <div>
       <Top>
         <Back>
-          <img src={back} />
+          <img src={back} alt="back" />
         </Back>
         <Title>スーパーマーケット</Title>
       </Top>
 
       <Now>
         <Headline>いまいるかも！</Headline>
-        {(() => {
+
+        {candidates &&
+          candidates[currentRequestLocation] &&
+          candidates[currentRequestLocation].now.map((v, i) => (
+            <NowFriend key={i}>
+              <FriendText>
+                <Username>{v.uid}</Username>
+                <Time>12:00</Time>
+              </FriendText>
+              <ChatIcon src={chat2} />
+            </NowFriend>
+          ))}
+        {/* {(() => {
           var list = [];
           var data = [
             { friendName: "mori", friendID: 123456789 },
@@ -36,12 +66,23 @@ export const FriendLocation = () => {
             );
           }
           return <ul>{list}</ul>;
-        })()}
+        })()} */}
       </Now>
 
       <Past>
         <Headline>さっきまでいたかも！</Headline>
-        {(() => {
+        {candidates &&
+          candidates[currentRequestLocation] &&
+          candidates[currentRequestLocation].before.map((v, i) => (
+            <NowFriend key={i}>
+              <PastFriend>
+                <Username>{v.uid}</Username>
+                <Time>12:00</Time>
+              </PastFriend>
+              <ChatIcon src={chat2} />
+            </NowFriend>
+          ))}
+        {/* {(() => {
           var list = [];
           var data = [
             { friendName: "mori", friendID: 123456789 },
@@ -61,7 +102,7 @@ export const FriendLocation = () => {
             );
           }
           return <ul>{list}</ul>;
-        })()}
+        })()} */}
       </Past>
     </div>
   );
