@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { useAuth } from "../../contexts/auth";
 import { useErrand } from "../../hooks/useErrand";
 import { useLocations } from "../../hooks/useLocations";
-import { FRIEND_LOCATION_PATH } from "../../services/utils/routeUrlPath";
+import {
+  FRIEND_LOCATION_PATH,
+  LOCATION_REGISTER_PATH,
+  LOCATION_STATUS_PATH,
+} from "../../services/utils/routeUrlPath";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";
@@ -50,13 +54,16 @@ export const LocationAdd = () => {
       </Top>
 
       <Range>
-        <NowLocationOFF>
-          <LocationIcon src={icon4} />
-          <LocationText>
-            <LocationName>特定の場所を登録する</LocationName>
-          </LocationText>
-          <CheckIconOn src={icon6} />
-        </NowLocationOFF>
+        <Link to={LOCATION_REGISTER_PATH} style={{ textDecoration: "none" }}>
+          <NowLocationOFF>
+            <LocationIcon src={icon4} />
+            <LocationText>
+              <LocationName>特定の場所を登録する</LocationName>
+            </LocationText>
+            <CheckIconOn src={icon6} />
+          </NowLocationOFF>
+        </Link>
+
         {/* {(() => {
           var list = [];
 

@@ -9,10 +9,12 @@ import {
   getDoc,
   getSubCollectionRef,
   setSubCollection,
+  updateDoc,
 } from "../../firebase/store";
 import {
   CHAT_MESSAGE_QUERY,
   CHAT_ROOMS_QUERY,
+  NOTICES_QUERY,
 } from "../../utils/fireeStoreQuery";
 import { ChatRoomsEntity } from "../../utils/fireStoreEntity";
 import { timestampToDateRecursively } from "../../utils/timestampToDateRecursively";
@@ -28,11 +30,12 @@ export const useChatRoomUsecase = (): ChatRoomContextInterface => {
 
   const sendMessages = async (
     message: string,
-    ownerId: string,
+    senderId: string,
+    receiveId: string,
     roomId: string
   ) => {
     const updateQuery = {
-      ownerId: ownerId,
+      ownerId: senderId,
       content: {
         message: message,
       },
@@ -40,9 +43,11 @@ export const useChatRoomUsecase = (): ChatRoomContextInterface => {
     };
 
     await setSubCollection(`${CHAT_MESSAGE_QUERY(roomId)}`, updateQuery);
-  };
 
-  const clearMessagesList = () => {};
+    await updateDoc(`${NOTICES_QUERY}/${receiveId}`, {
+      chat: firebase.firestore.FieldValue.arrayUnion(roomId),
+    });
+  };
 
   const fetchMessages = async (roomId: string) => {
     try {
@@ -83,5 +88,5 @@ export const useChatRoomUsecase = (): ChatRoomContextInterface => {
     }
   };
 
-  return { room, fetchMessages, sendMessages, clearMessagesList, onLoad };
+  return { room, fetchMessages, sendMessages, onLoad };
 };

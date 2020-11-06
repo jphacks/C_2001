@@ -11,6 +11,7 @@ import { FriendListProvider } from "../../contexts/friendList";
 import { ErrandProvider } from "../../contexts/errand";
 import { ChatListProvider } from "../../contexts/chatList";
 import { ChatRoomProvider } from "../../contexts/chat";
+import { NoticeProvider } from "../../contexts/notice";
 
 export const GlobalContext: React.FC = ({ children }) => {
   return (
@@ -20,7 +21,9 @@ export const GlobalContext: React.FC = ({ children }) => {
           <ErrandProvider>
             <CurrentUserLocationProvider>
               <ChatListProvider>
-                <ChatRoomProvider>{children}</ChatRoomProvider>
+                <ChatRoomProvider>
+                  <NoticeProvider>{children}</NoticeProvider>
+                </ChatRoomProvider>
               </ChatListProvider>
             </CurrentUserLocationProvider>
           </ErrandProvider>

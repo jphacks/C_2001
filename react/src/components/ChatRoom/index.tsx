@@ -2,44 +2,33 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../../contexts/auth";
+import { useNotice } from "../../contexts/notice";
 import { useChatRooom } from "../../hooks/useChat";
 import back from "./assets/back.png";
 
 export const ChatRoom = () => {
-  const {
-    room,
-    fetchMessages,
-    sendMessages,
-    clearMessagesList,
-    onLoad,
-  } = useChatRooom();
-  const { id }: { id: string } = useParams();
+  const { room, fetchMessages, sendMessages, onLoad } = useChatRooom();
+  const { id }: { id: string } = useParams(); //chat room id
   const { userCredential } = useAuth();
   const [message, setMessage] = React.useState("");
-
-  const ref = React.createRef<HTMLDivElement>();
-
-  const scrollToBottomOfList = React.useCallback(() => {
-    // ref?.current?.scrollIntoView({
-    //   block: "end",
-    // });
-
-    ref.current?.scrollIntoView({ block: "end" });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref]);
+  const { notice, removeChatNoticeItem } = useNotice();
 
   const onSubmitFn = () => {
     if (!message) return;
     const uid = userCredential.user?.id as string;
-    sendMessages(message, uid, id);
+    const friendId = room.member.filter((v) => uid !== v);
+    sendMessages(message, uid, friendId[0], id);
     setMessage("");
-    scrollToBottomOfList();
-    console.log(ref);
   };
 
   React.useEffect(() => {
     fetchMessages(id);
   }, []);
+
+  React.useEffect(() => {
+    if (notice.chat.indexOf(id) === -1) return;
+    removeChatNoticeItem(id);
+  }, [notice]);
 
   return (
     <div>
@@ -60,7 +49,7 @@ export const ChatRoom = () => {
         </Title>
       </Top>
 
-      <Content ref={ref}>
+      <Content>
         {onLoad &&
           room.messages.map((v) => {
             return v.ownerId === userCredential.user?.id ? (
