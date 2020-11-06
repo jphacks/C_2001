@@ -4,7 +4,12 @@ import { Navigation } from "../Navigation";
 import * as urls from "../../services/utils/routeUrlPath";
 import { useAuth } from "../../contexts/auth";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { LocationStatus } from "../LocationStatus";
 import { LocationAdd } from "../LocationAdd/inidex";
 import { LocationRegiister } from "../LocationRegister/inidex";
@@ -17,8 +22,29 @@ import { Singup } from "../Signup";
 import { Logout } from "../Logout";
 import { useCurrentUserLocation } from "../../hooks/useCurrentUserLocation";
 
+const hiddenNavUrlPath = [
+  urls.ROOT_PATH,
+  urls.LOGIN_PATH,
+  urls.SIGNUP_PATH,
+  urls.LOCATION_STATUS_PATH,
+  urls.CAHT_ROOM_PATH,
+  urls.FRIEND_REGISTER_PATH,
+];
+
+const NavigationContent = () => {
+  const { pathname } = useLocation();
+  const [navHidden, setNavHidden] = React.useState(false);
+
+  React.useEffect(() => {
+    const p = `/${pathname.split("/")[1]}`;
+    setNavHidden(hiddenNavUrlPath.findIndex((v) => v === p) !== -1);
+  }, [pathname]);
+
+  return navHidden ? <></> : <Navigation />;
+};
+
 export const Root = () => {
-  const { userCredential } = useAuth();
+  useAuth();
   const { requestNotice } = useCurrentUserLocation();
 
   React.useEffect(() => {
@@ -26,9 +52,9 @@ export const Root = () => {
   }, [requestNotice]);
   return (
     <Router>
-      <Navigation />
+      <NavigationContent />
       <Switch>
-        <Route path={urls.ROOT_PATH}>
+        <Route path={urls.ROOT_PATH} exact>
           <Home />
         </Route>
         <Route path={urls.HOME_PATH}>
