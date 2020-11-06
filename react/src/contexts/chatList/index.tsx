@@ -16,6 +16,7 @@ export interface ChatList extends FriendList {
 
 export interface ChatListContextInterface {
   friends: Array<ChatList>;
+  fetchChatList: () => void;
   onLoad: boolean;
 }
 

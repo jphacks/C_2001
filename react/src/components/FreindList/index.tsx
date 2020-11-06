@@ -9,9 +9,11 @@ import {
 } from "../../services/utils/routeUrlPath";
 
 export const FreindList = () => {
-  const { friends } = useChatList();
+  const { friends, fetchChatList } = useChatList();
 
-  React.useEffect(() => {}, [friends]);
+  React.useEffect(() => {
+    fetchChatList();
+  }, []);
 
   return (
     <>
