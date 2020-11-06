@@ -7,9 +7,11 @@ import {
   CHAT_ROOM_PATH,
   FRIEND_REGISTER_PATH,
 } from "../../services/utils/routeUrlPath";
+import { useNotice } from "../../hooks/useNotice";
 
 export const FreindList = () => {
   const { friends, fetchChatList } = useChatList();
+  const { notice } = useNotice();
 
   React.useEffect(() => {
     fetchChatList();
@@ -25,6 +27,7 @@ export const FreindList = () => {
           </Link>
         </Header>
       </Top>
+
       <Content>
         <RoomList>
           {friends.length !== 0 &&
@@ -34,6 +37,7 @@ export const FreindList = () => {
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <RoomItem>
+                  {notice.chat.indexOf(u.chatRoomId) !== -1 && <ChatNotice />}
                   <RoomName>{u.name}</RoomName>
                   <RoomMessage>{u.message}</RoomMessage>
                 </RoomItem>
@@ -90,6 +94,7 @@ const RoomList = styled.ul`
 `;
 
 const RoomItem = styled.li`
+  position: relative;
   height: 120px;
   width: 100%;
   padding: 0 50px;
@@ -106,4 +111,15 @@ const RoomMessage = styled.p`
   font-size: 12px;
   color: #858585;
   padding-top: 4px;
+`;
+
+const ChatNotice = styled.div`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff9900;
+  border-radius: 20px;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
 `;
