@@ -27,7 +27,7 @@ const hiddenNavUrlPath = [
   urls.LOGIN_PATH,
   urls.SIGNUP_PATH,
   urls.LOCATION_STATUS_PATH,
-  urls.CAHT_ROOM_PATH,
+  urls.CHAT_ROOM_PATH,
   urls.FRIEND_REGISTER_PATH,
 ];
 
@@ -47,9 +47,7 @@ export const Root = () => {
   useAuth();
   const { requestNotice } = useCurrentUserLocation();
 
-  React.useEffect(() => {
-    console.log(requestNotice);
-  }, [requestNotice]);
+  React.useEffect(() => {}, [requestNotice]);
   return (
     <Router>
       <NavigationContent />
@@ -72,7 +70,7 @@ export const Root = () => {
         <Route path={urls.FRIEND_LOCATION_PATH}>
           <FriendLocation />
         </Route>
-        <Route path={urls.CAHT_ROOM_PATH}>
+        <Route path={urls.CHAT_ROOM_ID_PATH}>
           <ChatRoom />
         </Route>
         <Route path={urls.FRIEND_LIST_PATH}>

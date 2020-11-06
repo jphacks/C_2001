@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import addIcon from "./assets/addIcon.png";
+import { useChatList } from "../../hooks/useChatList";
+import { Link } from "react-router-dom";
+import { CHAT_ROOM_PATH } from "../../services/utils/routeUrlPath";
 
 export const FreindList = () => {
+  const { friends } = useChatList();
+
+  React.useEffect(() => {}, [friends]);
+
   return (
     <>
       <Top>
@@ -13,42 +20,18 @@ export const FreindList = () => {
       </Top>
       <Content>
         <RoomList>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
-          <RoomItem>
-            <RoomName>キャプテン</RoomName>
-            <RoomMessage>メッセージ</RoomMessage>
-          </RoomItem>
+          {friends.length !== 0 &&
+            friends.map((u) => (
+              <Link
+                to={`${CHAT_ROOM_PATH}/${u.chatRoomId}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <RoomItem>
+                  <RoomName>{u.name}</RoomName>
+                  <RoomMessage>{u.message}</RoomMessage>
+                </RoomItem>
+              </Link>
+            ))}
         </RoomList>
       </Content>
     </>

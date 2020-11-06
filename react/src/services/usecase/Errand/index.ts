@@ -63,8 +63,6 @@ export const useErrandUsecase = (): ErrandContextInterface => {
           };
         });
 
-        console.log("listen responce", data);
-
         setCandidates({
           ...candidates,
           [spot]: {
@@ -76,7 +74,6 @@ export const useErrandUsecase = (): ErrandContextInterface => {
     );
 
     setTimeout(() => {
-      console.log("unsubscribe listen");
       unsubscribe();
     }, LISTEN_UNSUBSCRIBE_TIMEOUT);
   };
@@ -98,10 +95,6 @@ export const useErrandUsecase = (): ErrandContextInterface => {
         candidates: [],
       });
 
-      console.log(
-        "setDoc",
-        `${RESPONCE_NOTICES_QUERY}/${userCredential.user.id}`
-      );
       friends.friendList.forEach((friend) => {
         if (!friend) return;
         updateDoc(`${REQUEST_NOTICES_QUERY}/${friend.uid}`, {
