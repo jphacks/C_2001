@@ -9,6 +9,7 @@ export const Logout = () => {
   React.useEffect(() => {
     (async () => {
       await logoutFn();
+      console.log("logout");
       history.push("/");
     })();
   }, []);

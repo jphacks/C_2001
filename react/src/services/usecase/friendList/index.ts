@@ -1,5 +1,8 @@
 import React from "react";
-import { FriendListContextInterface } from "../../../contexts/friendList";
+import {
+  FriendList,
+  FriendListContextInterface,
+} from "../../../contexts/friendList";
 import { useAuth } from "../../../hooks/useAuth";
 import { getSubCollection } from "../../firebase/store";
 import { FRIENDS_LIST_QUERY } from "../../utils/fireeStoreQuery";
@@ -7,9 +10,7 @@ import { FriendsListEntity } from "../../utils/fireStoreEntity";
 
 export const useFriendListUseCase = (): FriendListContextInterface => {
   const { userCredential } = useAuth();
-  const [friendList, setFriendList] = React.useState<
-    Array<FriendsListEntity | null>
-  >([null]);
+  const [friendList, setFriendList] = React.useState<Array<FriendList>>([]);
   const [onLoad, setOnLoad] = React.useState<boolean>(false);
 
   const fetchFriendList = async (uid: string) => {
@@ -22,14 +23,15 @@ export const useFriendListUseCase = (): FriendListContextInterface => {
 
       const f = collectionData.map((d) => {
         return {
+          uid: d.id,
           chatRoomId: d.data?.chatId,
-        } as FriendsListEntity;
+        } as FriendList;
       });
 
       setFriendList([...friendList, ...f]);
       setOnLoad(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setOnLoad(true);
     }
   };
@@ -48,14 +50,15 @@ export const useFriendListUseCase = (): FriendListContextInterface => {
 
         const f = collectionData.map((d) => {
           return {
+            uid: d.id,
             chatRoomId: d.data?.chatId,
-          } as FriendsListEntity;
+          } as FriendList;
         });
 
-        setFriendList([...friendList, ...f]);
+        setFriendList([...f]);
         setOnLoad(true);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setOnLoad(true);
       }
     })();

@@ -26,7 +26,7 @@ export const useGeolocation = () => {
     };
 
     const errorCallback = (error: PositionError) => {
-      console.log(error);
+      console.error(error);
       if (!didCancel) {
         setGeolocation({
           latitude: null,

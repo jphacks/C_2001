@@ -43,7 +43,7 @@ export const useLocationsUsecase = (): LocationsContextInterface => {
       });
       setOnLoad(true);
     } catch (error) {
-      console.log("error", error);
+      console.error(error);
       setOnLoad(true);
       setError(new Error("Locationを保存できませんでした"));
     }
@@ -59,7 +59,6 @@ export const useLocationsUsecase = (): LocationsContextInterface => {
 
       if (!location) return;
 
-      console.log("location", location);
       const originalLocation = location.map((d) => {
         return {
           name: d.data?.name ? d.data.name : "",
@@ -80,7 +79,7 @@ export const useLocationsUsecase = (): LocationsContextInterface => {
         originalLocations: originalLocation,
       });
     } catch (error) {
-      console.log("error", error);
+      console.error(error);
       setOnLoad(true);
       setError(new Error("Locationを読み込めませんでした"));
     }

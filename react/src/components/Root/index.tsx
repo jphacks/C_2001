@@ -15,9 +15,15 @@ import { FreindRegister } from "../FreindRegister";
 import { Login } from "../Login";
 import { Singup } from "../Signup";
 import { Logout } from "../Logout";
+import { useCurrentUserLocation } from "../../hooks/useCurrentUserLocation";
 
 export const Root = () => {
   const { userCredential } = useAuth();
+  const { requestNotice } = useCurrentUserLocation();
+
+  React.useEffect(() => {
+    console.log(requestNotice);
+  }, [requestNotice]);
   return (
     <Router>
       <Navigation />

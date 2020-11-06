@@ -5,8 +5,12 @@ import { createCtx } from "../../services/utils/createCtx";
 import { FriendsListEntity } from "../../services/utils/fireStoreEntity";
 import { useFriendListUseCase } from "../../services/usecase/friendList";
 
+export interface FriendList extends FriendsListEntity {
+  uid: string;
+}
+
 export interface FriendListContextInterface {
-  friendList: Array<FriendsListEntity | null>;
+  friendList: Array<FriendList>;
   fetchFriendList: (uid: string) => Promise<void>;
   onLoad: boolean;
 }

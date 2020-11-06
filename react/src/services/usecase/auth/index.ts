@@ -29,7 +29,7 @@ export const useAuthUsecase = (): AuthContextInterface => {
             status: "out",
             user: null,
           });
-
+          console.log("logout!");
           return;
         }
 
@@ -49,6 +49,8 @@ export const useAuthUsecase = (): AuthContextInterface => {
           });
           return;
         }
+
+        console.log("login!");
 
         setUserCredential({
           status: "in",
