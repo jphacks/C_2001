@@ -1,27 +1,38 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth, User } from "../../contexts/auth";
+import { useFriendRequest } from "../../hooks/useFriendRequest";
 import { useSearchUserWithEmail } from "../../hooks/useSearchUserWithEmail";
+import { CHAT_ROOM_PATH } from "../../services/utils/routeUrlPath";
 import back from "./assets/back.png";
 
-const TIMEOUT_COUNT = 2000;
-const regEmail = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const TIMEOUT_COUNT = 500;
 
 export const FreindRegister = () => {
+  const { userCredential } = useAuth();
   const { foundUsers, searchUsersFn } = useSearchUserWithEmail();
-
   const [cleanTimoutId, setCleanTimoutId] = React.useState(0);
+  const history = useHistory();
+
+  const { request, requestFn } = useFriendRequest();
 
   const onSearchFn = (e: string) => {
-    if (!e.match(regEmail)) return;
     searchUsersFn(e);
   };
 
   const onChangedFn = (e: React.FormEvent<HTMLInputElement>) => {
     clearTimeout(cleanTimoutId);
-    console.log(cleanTimoutId);
     setCleanTimoutId(
       setTimeout(onSearchFn, TIMEOUT_COUNT, e.currentTarget.value)
     );
+  };
+
+  const oonSubmitRequestFn = (f: User) => {
+    if (!userCredential.user?.id)
+      throw new Error("cannot request friend ship. please login");
+
+    requestFn(f, userCredential.user.id);
   };
 
   return (
@@ -37,15 +48,61 @@ export const FreindRegister = () => {
       </Form>
 
       <Now>
+        {request.status === "done" && (
+          <div style={{ marginTop: 20, textAlign: "center" }}>
+            <small style={{ display: "block", paddingBottom: 5 }}>
+              申請完了!
+            </small>
+            <ReqDone
+              onClick={() => {
+                history.push(`${CHAT_ROOM_PATH}/${request.to.chatRooomId}`);
+              }}
+            >
+              チャットする
+            </ReqDone>
+          </div>
+        )}
+
         {foundUsers.length !== 0 &&
           foundUsers.map((u, i) => (
-            <NowFriend key={i}>
+            <NowFriend
+              key={i}
+              onClick={() => {
+                oonSubmitRequestFn(u);
+              }}
+            >
               <FriendText>
                 <Username>{u.name}</Username>
                 <UserID>{u.id}</UserID>
               </FriendText>
             </NowFriend>
           ))}
+        {request.status === "progress" && (
+          <small
+            style={{
+              textAlign: "right",
+              display: "block",
+              color: "#aaa",
+              paddingRight: 5,
+            }}
+          >
+            申請中...
+          </small>
+        )}
+
+        {request.status === "already" && (
+          <small
+            style={{
+              textAlign: "right",
+              display: "block",
+              color: "#aaa",
+              paddingRight: 5,
+            }}
+          >
+            友達追加済みです
+          </small>
+        )}
+
         {/* {(() => {
           var list = [];
           var data = [
@@ -129,7 +186,7 @@ const NowFriend = styled.button`
   border: 3px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 6px;
-  margin: 10px auto;
+  margin: 20px auto 0;
   padding: 0;
   outline: none;
   text-align: left;
@@ -153,4 +210,16 @@ const UserID = styled.p`
   color: #c4c4c4;
   margin: 5px 0 0 0;
   text-align: left;
+`;
+
+const ReqDone = styled.button`
+  border: none;
+  outline: none;
+  background: #ff9900;
+  border-radius: 11px;
+  padding: 12px 40px;
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+  margin: auto;
 `;
