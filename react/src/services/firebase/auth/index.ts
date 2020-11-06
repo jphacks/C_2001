@@ -74,6 +74,7 @@ export const fireAuthSignUp = async (
           userStatus: {
             clientUserId: "",
             type: "public",
+            location: "",
           },
         } as RequestNotices);
 

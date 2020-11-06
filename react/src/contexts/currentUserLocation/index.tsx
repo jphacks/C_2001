@@ -14,6 +14,7 @@ export interface RequestNotices
 
 export interface CurrentUserLocationContextInterface {
   requestNotice: RequestNotices | null;
+  toggleStatusFn: (status: "private" | "public") => void;
 }
 
 const [useCurrentUserLocation, CurrentUserLocationContext] = createCtx<

@@ -18,15 +18,34 @@ import {
 import { useAuth } from "../../../hooks/useAuth";
 import { timestampToDateRecursively } from "../../utils/timestampToDateRecursively";
 import { useGeolocation } from "../../../hooks/useGeolocation";
-import { RequestNotices } from "../../../contexts/currentUserLocation";
+import {
+  CurrentUserLocationContextInterface,
+  RequestNotices,
+} from "../../../contexts/currentUserLocation";
 
-export const useListenReqNoticeUsecase = () => {
+export const useListenReqNoticeUsecase = (): CurrentUserLocationContextInterface => {
   const { userCredential } = useAuth();
   const [requestNotice, setRequestNotice] = useState<RequestNotices | null>(
     null
   );
 
   const geolocation = useGeolocation();
+
+  const toggleStatusFn = async (status: "private" | "public") => {
+    if (!userCredential.user?.id) return;
+    const uid = userCredential.user.id;
+    await updateDoc(`${REQUEST_NOTICES_QUERY}/${uid}`, {
+      lastChange: new Date(),
+      currentLoction: new firebase.firestore.GeoPoint(
+        geolocation.latitude ? geolocation.latitude : 0,
+        geolocation.longitude ? geolocation.longitude : 0
+      ),
+      userStatus: {
+        clientUserId: requestNotice?.userStatus.clientUserId,
+        type: status,
+      },
+    });
+  };
 
   React.useEffect(() => {
     if (!userCredential.user?.id) return;
@@ -87,6 +106,7 @@ export const useListenReqNoticeUsecase = () => {
           userStatus: {
             clientUserId: data.userStatus.clientUserId,
             type: data.userStatus.type,
+            location: "",
           },
         });
       }
@@ -99,5 +119,5 @@ export const useListenReqNoticeUsecase = () => {
 
   React.useEffect(() => {}, [requestNotice]);
 
-  return { requestNotice };
+  return { requestNotice, toggleStatusFn };
 };

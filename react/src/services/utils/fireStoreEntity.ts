@@ -44,15 +44,17 @@ export interface RequestNoticesEntiity {
   userStatus: {
     clientUserId: string;
     type: "public" | "private" | "request" | "contract";
+    location: "";
   };
 }
 
+interface ChatNotice {
+  [ket: string]: string;
+  // chatRoomId : messageId
+}
+
 export interface NoticesEntity {
-  content: {
-    message: string;
-  };
-  noticeRooms: Array<string>;
-  noticeType: "none" | "chat";
+  chat: Array<string>;
 }
 
 export interface OriginalLocationsEntity {

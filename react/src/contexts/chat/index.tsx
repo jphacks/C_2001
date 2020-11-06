@@ -21,8 +21,12 @@ export interface ChatRoom {
 export interface ChatRoomContextInterface {
   room: ChatRoom;
   fetchMessages: (roomId: string) => void;
-  sendMessages: (message: string, ownerId: string, roomId: string) => void;
-  clearMessagesList: () => void;
+  sendMessages: (
+    message: string,
+    senderId: string,
+    receiveId: string,
+    roomId: string
+  ) => void;
   onLoad: boolean;
 }
 
