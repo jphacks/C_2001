@@ -64,6 +64,8 @@ export const getCollection = async (
   }
 };
 
+export const getCollectionRef = (path: string) => getBaseCollection(path);
+
 export const setCollection = async (
   path: string,
   query: SetFql,
