@@ -78,7 +78,7 @@ export const FriendLocation = () => {
 
       <Past>
         <Headline>さっきまでいたかも！</Headline>
-        {candidates &&
+        {/* {candidates &&
           candidates[currentRequestLocation] &&
           candidates[currentRequestLocation].before.map((v, i) => (
             <NowFriend key={i}>
@@ -88,7 +88,7 @@ export const FriendLocation = () => {
               </PastFriend>
               <ChatIcon src={chat2} />
             </NowFriend>
-          ))}
+          ))} */}
         {/* {(() => {
           var list = [];
           var data = [

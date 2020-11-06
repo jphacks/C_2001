@@ -3,7 +3,10 @@ import styled from "styled-components";
 import addIcon from "./assets/addIcon.png";
 import { useChatList } from "../../hooks/useChatList";
 import { Link } from "react-router-dom";
-import { CHAT_ROOM_PATH } from "../../services/utils/routeUrlPath";
+import {
+  CHAT_ROOM_PATH,
+  FRIEND_REGISTER_PATH,
+} from "../../services/utils/routeUrlPath";
 
 export const FreindList = () => {
   const { friends } = useChatList();
@@ -15,7 +18,9 @@ export const FreindList = () => {
       <Top>
         <Header>
           <Title>チャット</Title>
-          <AddIcon src={addIcon} alt="friend add icon" />
+          <Link to={FRIEND_REGISTER_PATH}>
+            <AddIcon src={addIcon} alt="friend add icon" />
+          </Link>
         </Header>
       </Top>
       <Content>
