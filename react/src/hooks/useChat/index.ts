@@ -4,4 +4,4 @@
  * Chat用ユースケースHooks
  *
  */
-export const useChat = {};
+export { useChatRooom } from "../../contexts/chat";

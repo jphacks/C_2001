@@ -4,6 +4,8 @@ import { createCtx } from "../../services/utils/createCtx";
 
 export interface CandidateFriend {
   uid: string;
+  name: string;
+  chatRoomId: string;
   updatedAt: Date;
 }
 

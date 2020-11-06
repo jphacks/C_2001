@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { updateDoc, subscribeDocSnapshoot } from "../../firebase/store";
+import {
+  updateDoc,
+  subscribeDocSnapshoot,
+  getSubDoc,
+} from "../../firebase/store";
 import firebase from "firebase";
 import {
+  FRIENDS_LIST_QUERY,
   REQUEST_NOTICES_QUERY,
   RESPONCE_NOTICES_QUERY,
 } from "../../utils/fireeStoreQuery";
-import { RequestNoticesEntiity } from "../../utils/fireStoreEntity";
+import {
+  FriendsListEntity,
+  RequestNoticesEntiity,
+} from "../../utils/fireStoreEntity";
 
 import { useAuth } from "../../../hooks/useAuth";
 import { timestampToDateRecursively } from "../../utils/timestampToDateRecursively";
@@ -25,13 +33,21 @@ export const useListenReqNoticeUsecase = () => {
 
     const unsubscribe = subscribeDocSnapshoot(
       `${REQUEST_NOTICES_QUERY}/${userCredential.user.id}`,
-      (snapshot) => {
+      async (snapshot) => {
         if (!(snapshot.exists && userCredential.user?.id)) return;
 
         const data = snapshot.data() as RequestNoticesEntiity;
 
+        const uid = userCredential.user.id;
+
         if (data.requestStatus.type === "request") {
-          updateDoc(`${REQUEST_NOTICES_QUERY}/${userCredential.user.id}`, {
+          const friend = await getSubDoc(
+            `${FRIENDS_LIST_QUERY(uid)}/${data.requestStatus.clientUserId}`
+          );
+
+          const f = friend?.data as FriendsListEntity;
+
+          updateDoc(`${REQUEST_NOTICES_QUERY}/${uid}`, {
             requestStatus: {
               type: "responce",
               clientUserId: "",
@@ -46,9 +62,11 @@ export const useListenReqNoticeUsecase = () => {
           updateDoc(
             `${RESPONCE_NOTICES_QUERY}/${data.requestStatus.clientUserId}`,
             {
-              candidates: firebase.firestore.FieldValue.arrayUnion(
-                userCredential.user.id
-              ),
+              candidates: firebase.firestore.FieldValue.arrayUnion({
+                uid: uid,
+                name: userCredential.user.name,
+                chatRoomId: f.chatRoomId,
+              }),
             }
           );
           return;

@@ -27,7 +27,7 @@ export const useErrandUsecase = (): ErrandContextInterface => {
 
   const listenResponseStateFn = (spot: string) => {
     if (!userCredential.user?.id) {
-      console.error("cannot listen responce; Please login");
+      console.error("cannot listens responce; Please login");
       return;
     }
 
@@ -52,13 +52,16 @@ export const useErrandUsecase = (): ErrandContextInterface => {
           _candidates.before = candidates[spot].now.filter((v) => {
             if (v === null) return false;
 
-            return !data.candidates.includes(v.uid);
+            // return !data.candidates.includes(v.uid);
+            return [];
           });
         }
 
         _candidates.now = data.candidates.map((v) => {
           return {
-            uid: v,
+            uid: v.uid,
+            name: v.name,
+            chatRoomId: v.chatRoomId,
             updatedAt: new Date(),
           };
         });
