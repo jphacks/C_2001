@@ -6,6 +6,9 @@ import chat1 from "./assets/chat1.png";
 import { useFriendList } from "../../hooks/useFriendList";
 import { useLocations } from "../../hooks/useLocations";
 import { useErrand } from "../../hooks/useErrand";
+import { Link } from "react-router-dom";
+import { CHAT_ROOM_PATH } from "../../services/utils/routeUrlPath";
+import { NONAME } from "dns";
 
 export const FriendLocation = () => {
   const friend = useFriendList();
@@ -37,13 +40,18 @@ export const FriendLocation = () => {
         {candidates &&
           candidates[currentRequestLocation] &&
           candidates[currentRequestLocation].now.map((v, i) => (
-            <NowFriend key={i}>
-              <FriendText>
-                <Username>{v.uid}</Username>
-                <Time>12:00</Time>
-              </FriendText>
-              <ChatIcon src={chat2} />
-            </NowFriend>
+            <Link
+              to={`${CHAT_ROOM_PATH}/${v.chatRoomId}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <NowFriend key={i}>
+                <FriendText>
+                  <Username>{v.name}</Username>
+                  <Time>12:00</Time>
+                </FriendText>
+                <ChatIcon src={chat2} />
+              </NowFriend>
+            </Link>
           ))}
         {/* {(() => {
           var list = [];

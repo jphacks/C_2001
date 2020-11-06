@@ -5,7 +5,6 @@
  */
 import React from "react";
 import { useChatListUsecase } from "../../services/usecase/chatList";
-import { useFriendListUseCase } from "../../services/usecase/friendList";
 import { createCtx } from "../../services/utils/createCtx";
 import { FriendList } from "../friendList";
 
