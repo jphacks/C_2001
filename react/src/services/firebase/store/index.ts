@@ -64,6 +64,8 @@ export const getCollection = async (
   }
 };
 
+export const getCollectionRef = (path: string) => getBaseCollection(path);
+
 export const setCollection = async (
   path: string,
   query: SetFql,
@@ -98,7 +100,7 @@ export const getSubCollectionRef = (path: string) => getBaseSubCollection(path);
 export const setSubCollection = async (
   path: string,
   query: SetFql,
-  option: any
+  option?: any
 ): Promise<string> => {
   try {
     const ref = await getBaseSubCollection(path).add(query);
@@ -263,3 +265,10 @@ export const subscribeDocSnapshoot = (
     >
   ) => void
 ) => getBaseDoc(path).onSnapshot((snap) => callback(snap));
+
+export const subscribeSubCollectionSnapshoot = (
+  path: string,
+  callback: (
+    snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+  ) => void
+) => getBaseSubCollection(path).onSnapshot((snap) => callback(snap));

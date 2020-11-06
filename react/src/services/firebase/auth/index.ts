@@ -6,8 +6,12 @@
 import FireApp from "../config";
 import firebase from "firebase";
 import { DocData, getDoc, setDoc } from "../store";
-import { USERS_QUERY } from "../../utils/fireeStoreQuery";
+import {
+  REQUEST_NOTICES_QUERY,
+  USERS_QUERY,
+} from "../../utils/fireeStoreQuery";
 import { UsersEntity } from "../../utils/fireStoreEntity";
+import { RequestNotices } from "../../../contexts/currentUserLocation";
 
 export const FireAuth = FireApp.auth();
 
@@ -54,6 +58,25 @@ export const fireAuthSignUp = async (
           name: name,
           email: credencial.user?.email ? credencial.user?.email : "",
         } as UsersEntity);
+
+        await setDoc(`${REQUEST_NOTICES_QUERY}/${uid}`, {
+          currentLoction: new firebase.firestore.GeoPoint(0, 0),
+          lastChange: new Date(),
+          locationStatus: {
+            convenienceStore: false,
+            drugstore: false,
+            superMaquette: false,
+          },
+          requestStatus: {
+            clientUserId: "",
+            type: "none",
+          },
+          userStatus: {
+            clientUserId: "",
+            type: "public",
+          },
+        } as RequestNotices);
+
         return uid ? getDoc(`${USERS_QUERY}/${uid}`) : null;
       } catch (error) {
         throw error;

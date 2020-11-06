@@ -11,11 +11,11 @@ export interface FriendsListEntity {
 
 export interface ChatRoomsEntity {
   members: Array<string>;
-  requestStatus: {
-    message: string;
-    requestLocation: string;
-    type: string;
-  };
+  // requestStatus: {
+  //   message: string;
+  //   requestLocation: string;
+  //   type: string;
+  // };
 }
 
 export interface MessagesEntity {
@@ -64,5 +64,9 @@ export interface OriginalLocationsEntity {
 }
 
 export interface ResponceNoticeEntity {
-  candidates: Array<string>;
+  candidates: Array<{
+    uid: string;
+    name: string;
+    chatRoomId: string;
+  }>;
 }

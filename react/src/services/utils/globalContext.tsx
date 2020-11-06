@@ -10,6 +10,8 @@ import { CurrentUserLocationProvider } from "../../contexts/currentUserLocation"
 import { FriendListProvider } from "../../contexts/friendList";
 import { ErrandProvider } from "../../contexts/errand";
 import { ChatListProvider } from "../../contexts/chatList";
+import { ChatRoomProvider } from "../../contexts/chat";
+
 export const GlobalContext: React.FC = ({ children }) => {
   return (
     <AuthProvider>
@@ -17,7 +19,9 @@ export const GlobalContext: React.FC = ({ children }) => {
         <FriendListProvider>
           <ErrandProvider>
             <CurrentUserLocationProvider>
-              <ChatListProvider>{children}</ChatListProvider>
+              <ChatListProvider>
+                <ChatRoomProvider>{children}</ChatRoomProvider>
+              </ChatListProvider>
             </CurrentUserLocationProvider>
           </ErrandProvider>
         </FriendListProvider>
